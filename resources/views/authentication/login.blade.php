@@ -71,10 +71,10 @@
                 <!-- Logo -->
                 <div class="app-brand mb-4">
                     <a href="{{route('dashboard')}}" class="app-brand-link gap-2 mb-2">
-                        <span class="app-brand-text demo h3 mb-0 fw-bold">RE-CON</span>
+                        <span class="app-brand-text demo h3 mb-0 fw-bold">CHARLII</span>
                     </a>
                 </div>
-                <h4 class="mb-2">Welcome to RE-CON! 👋</h4>
+                <h4 class="mb-2">Welcome to CHARLII! 👋</h4>
                 <p class="mb-4">Please sign-in to your account</p>
                 <form class="mb-3" action="{{route('admin.login.data')}}" method="POST">
                     @csrf

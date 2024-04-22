@@ -23,7 +23,7 @@ class AccountController extends Controller
 
     public function manageAccountData(UserAccountUpdateRequest $request){
 
-        $user = User::where('id', Auth::id())->with('getCompany')->first();
+        $user = User::where('id', Auth::id())->first();
 
         $userData['name'] = $request->name;
         $userData['email'] = $request->email;
@@ -32,27 +32,12 @@ class AccountController extends Controller
             $userData['password'] = $request->password;
         }
 
-        if(!empty($request->has('profile_picture'))){
-
+        if (!empty($request->has('profile_picture'))) {
             $file = $request->file('profile_picture');
-            $path = public_path('/assets/img/profiles');
+            $user->clearMediaCollection('user_profile_image');
 
-            if(!File::isDirectory($path)){
-                File::makeDirectory($path, 0777, true, true);
-            }
-
-
-            if($user->profile_image !== "default.png"){
-                $oldImage = $path.'/'.$user->profile_image;
-                if(file_exists($oldImage)){
-                    File::delete($oldImage);
-                }
-            }
-
-            $newImage = Str::random(10).now()->format('YmdHis').Str::random(10).'.'.$file->getclientoriginalextension();
-            Image::make($file)->save($path.'/'.$newImage);
-
-            $userData['profile_image'] = $newImage;
+            $imageName = Str::random(10) . now()->format('YmdHis') . Str::random(10) . '.' . $file->getclientoriginalextension();
+            $user->addMedia($file)->usingFileName($imageName)->toMediaCollection('user_profile_image');
         }
 
         $user->update($userData);

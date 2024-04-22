@@ -48,6 +48,10 @@ class User extends Authenticatable implements HasMedia
         'last_seen',
     ];
 
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
     /**
      * The attributes that should be hidden for serialization.
      *

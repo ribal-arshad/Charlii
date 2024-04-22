@@ -66,7 +66,7 @@
                 <!-- Logo -->
                 <div class="app-brand mb-4">
                     <a href="{{route('dashboard')}}" class="app-brand-link gap-2 mb-2">
-                        <span class="app-brand-text demo h3 mb-0 fw-bold">RE-CON</span>
+                        <span class="app-brand-text demo h3 mb-0 fw-bold">Charlii</span>
                     </a>
                 </div>
                 <h4 class="mb-2">Forgot Password? 🔒</h4>

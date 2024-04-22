@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ManageRoleController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
@@ -41,15 +42,29 @@ Route::group(['middleware' => ['auth']],function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::controller(ManageUserController::class)->group(function () {
-        Route::get('/manage-users', 'manageUser')->name('manage.users');
-        Route::get('/add-user', 'addUser')->name('user.add');
-        Route::post('/add-user', 'addUserData')->name('user.add.data');
-        Route::get('/update-user/{userId}', 'updateUser')->name('user.update');
-        Route::post('/update-user/{userId}', 'updateUserData')->name('user.update.data');
-        Route::get('/user-detail/{userId}', 'getUserDetail')->name('user.detail');
-        Route::get('/change-user-status/{companyId}', 'changeUserStatus')->name('user.change.status');
-        Route::get('/delete-user/{userId}', 'deleteUser')->name('user.delete');
+    Route::prefix('admin/roles')->group(function () {
+        Route::controller(ManageUserController::class)->group(function () {
+            Route::get('/manage-users', 'manageUser')->name('manage.users');
+            Route::get('/add-user', 'addUser')->name('user.add');
+            Route::post('/add-user', 'addUserData')->name('user.add.data');
+            Route::get('/update-user/{userId}', 'updateUser')->name('user.update');
+            Route::post('/update-user/{userId}', 'updateUserData')->name('user.update.data');
+            Route::get('/user-detail/{userId}', 'getUserDetail')->name('user.detail');
+            Route::get('/change-user-status/{companyId}', 'changeUserStatus')->name('user.change.status');
+            Route::get('/delete-user/{userId}', 'deleteUser')->name('user.delete');
+        });
+    });
+
+    Route::prefix('admin/roles')->group(function () {
+        Route::controller(ManageRoleController::class)->group(function () {
+            Route::get('/', 'manageRoles')->name('manage.roles');
+            Route::get('/add', 'addRole')->name('role.add');
+            Route::post('/add', 'addRoleData')->name('role.add.data');
+            Route::get('/update/{roleId}', 'updateRole')->name('role.update');
+            Route::post('/update/{roleId}', 'updateRoleData')->name('role.update.data');
+            Route::get('/role-detail/{roleId}', 'getRoleDetail')->name('role.detail');
+            Route::get('/change-role-status/{roleId}', 'changeRoleStatus')->name('role.change.status');
+        });
     });
 
     Route::controller(AccountController::class)->group(function () {

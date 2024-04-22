@@ -8,6 +8,7 @@ use App\Interfaces\ManageUserRepositoryInterface;
 use App\Models\User;
 use App\Notifications\UserWelcome;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
@@ -38,7 +39,7 @@ class ManageUserRepository implements ManageUserRepositoryInterface
 
     public function createUser($req)
     {
-        $role = Role::where('name', $req->role)->first();
+        $role = Role::where('id', $req->role)->first();
 
         if(empty($role)){
             return redirect()->back()->withInput()->with('error_msg', 'Role is invalid.');
@@ -49,7 +50,15 @@ class ManageUserRepository implements ManageUserRepositoryInterface
             'email' => $req->email,
             'password' => $req->password,
             'email_verified_at' => now(),
+            'user_type' => 0,
         ]);
+
+        if (!empty($req->has('profile_picture'))) {
+            $file = $req->file('profile_picture');
+
+            $imageName = Str::random(10) . now()->format('YmdHis') . Str::random(10) . '.' . $file->getclientoriginalextension();
+            $user->addMedia($file)->usingFileName($imageName)->toMediaCollection('user_profile_image');
+        }
 
         $permissions = Permission::pluck('id','id')->all();
 
@@ -68,11 +77,18 @@ class ManageUserRepository implements ManageUserRepositoryInterface
         $user = User::where('id', $userId)->first();
 
         if(!empty($user)){
-
             $userData['name'] = $req->name;
             $userData['email'] = $req->email;
             if(!empty($req->password)){
                 $userData['password'] = $req->password;
+            }
+
+            if (!empty($req->has('profile_picture'))) {
+                $file = $req->file('profile_picture');
+                $user->clearMediaCollection('user_profile_image');
+
+                $imageName = Str::random(10) . now()->format('YmdHis') . Str::random(10) . '.' . $file->getclientoriginalextension();
+                $user->addMedia($file)->usingFileName($imageName)->toMediaCollection('user_profile_image');
             }
 
             $user->update($userData);

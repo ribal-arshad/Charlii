@@ -6,15 +6,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Interfaces\ManageRoleRepositoryInterface;
 use App\Interfaces\ManageUserRepositoryInterface;
 
 class ManageUserController extends Controller
 {
     private ManageUserRepositoryInterface $manageUserRepository;
+    private ManageRoleRepositoryInterface $manageRoleRepository;
 
-    public function __construct(ManageUserRepositoryInterface $manageUserRepository)
+    public function __construct(ManageUserRepositoryInterface $manageUserRepository, ManageRoleRepositoryInterface $manageRoleRepository)
     {
         $this->manageUserRepository = $manageUserRepository;
+        $this->manageRoleRepository = $manageRoleRepository;
     }
 
     public function manageUser(){
@@ -25,9 +28,11 @@ class ManageUserController extends Controller
         return view('manage-user.index');
     }
 
-    public function addUser(){
+    public function addUser()
+    {
+        $roles = $this->manageRoleRepository->getActiveRolesToCreateUser();
 
-        return view('manage-user.add');
+        return view('manage-user.add', compact('roles'));
     }
 
     public function addUserData(UserStoreRequest $request){
@@ -37,9 +42,11 @@ class ManageUserController extends Controller
     public function updateUser($userId){
 
         $user = $this->manageUserRepository->getUserById($userId);
+        $roles = $this->manageRoleRepository->getActiveRolesToCreateUser();
+
 
         if (!empty($user)){
-            return view('manage-user.update', compact('user'));
+            return view('manage-user.update', compact('user', 'roles'));
         }
 
         abort(404);

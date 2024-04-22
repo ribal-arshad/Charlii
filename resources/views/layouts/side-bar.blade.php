@@ -5,7 +5,7 @@
               <span class="app-brand-logo demo">
                <img src="{{asset('assets/img/logo/logo.png')}}">
               </span>
-            <span class="app-brand-text demo menu-text fw-bold ms-2" style="color: #516377">RE-CON</span>
+            <span class="app-brand-text demo menu-text fw-bold ms-2" style="color: #516377">CHARLII</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -25,11 +25,22 @@
                 <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
-        <li class="menu-item">
+
+        @php($user_routes = ['manage.users', 'user.add', 'user.update', 'user.detail'])
+        <li @class(['menu-item', 'active' => isRouteActive($user_routes)])>
             <a href="{{route('manage.users')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Manage Users">Manage Users</div>
             </a>
         </li>
+
+        @php($roles_routes = ['manage.roles', 'role.update', 'role.detail', 'role.add'])
+        <li @class(['menu-item', 'active' => isRouteActive($roles_routes)])>
+            <a href="{{route('manage.roles')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user-voice"></i>
+                <div data-i18n="Roles">Roles</div>
+            </a>
+        </li>
+
     </ul>
 </aside>

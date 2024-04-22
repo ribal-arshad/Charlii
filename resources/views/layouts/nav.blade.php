@@ -16,7 +16,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <div class="avatar avatar-online">
-                            <img src="{{asset('assets/img/profiles/'.Auth::user()->profile_image)}}" alt class="rounded-circle"/>
+                            <img src="{{ auth()->user()->getFirstMediaUrl('user_profile_image') ? auth()->user()->getFirstMediaUrl('user_profile_image') : asset('assets/img/profiles/default.png') }}" alt class="rounded-circle"/>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -25,12 +25,12 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar avatar-online">
-                                            <img src="{{asset('assets/img/profiles/'.Auth::user()->profile_image)}}" alt class="rounded-circle"/>
+                                            <img src="{{ auth()->user()->getFirstMediaUrl('user_profile_image') ? auth()->user()->getFirstMediaUrl('user_profile_image') : asset('assets/img/profiles/default.png') }}" alt class="rounded-circle"/>
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <span class="fw-semibold d-block lh-1">{{ucfirst(Auth::user()->username)}}</span>
-                                        <small>{{Auth::user()->getRoleNames()[0]}}</small>
+                                        <span class="fw-semibold d-block lh-1">{{ucfirst(auth()->user()->name)}}</span>
+                                        <small>{{auth()->user()->getRoleNames()[0]}}</small>
                                     </div>
                                 </div>
                             </a>

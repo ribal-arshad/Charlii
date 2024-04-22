@@ -14,7 +14,7 @@
                             @include('partials.alert')
                             <div class="row">
                                 <div class="col-md-6 mb-6">
-                                    <label class="form-label">UserName</label>
+                                    <label class="form-label">Name</label>
                                     <input type="text" class="form-control" name="name" value="{{old('name', $user->name)}}" placeholder="Enter name"/>
                                 </div>
                                 <div class="col-md-6 mb-6">
@@ -22,7 +22,7 @@
                                     <input type="email" class="form-control" name="email" value="{{old('email', $user->email)}}" placeholder="Enter email"/>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mt-3">
                                 <div class="col-md-6 mb-6">
                                     <label class="form-label">New Password (Min. 8 characters)</label>
                                     <div class="input-group form-password-toggle">
@@ -51,21 +51,18 @@
                                 </div>
                             </div>
 
-                            <div class="row profile_image_parent">
+                            <div class="row profile_image_parent mt-3">
                                 <div class="col-md-6 mb-6">
                                     <label class="form-label">Profile Picture</label>
-                                    <input type="file" class="form-control" id="profile_picture" name="profile_picture" value=""/>
+                                    <input type="file" class="form-control" id="profile_picture" name="profile_picture"
+                                           value="" />
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-6 mb-6">
-                                    <img
-                                        id="profile_image_preview"
-                                        src="{{asset('assets/img/profiles/'.$user->profile_image)}}"
-                                        height="250px"
-                                        width="250px"
-                                        alt="profile image"
-                                    />
+                                    <img id="profile_image_preview"
+                                         src="{{ auth()->user()->getFirstMediaUrl('user_profile_image') ? auth()->user()->getFirstMediaUrl('user_profile_image') : asset('assets/img/profiles/default.png') }}" height="250px"
+                                         width="250px" alt="profile image" />
                                 </div>
                             </div>
                             <div class="row mt-3">
