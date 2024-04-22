@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('plotline_title');
             $table->string('plotline_json')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('series_id')->references('id')->on('seriess')->onDelete('cascade');
+            $table->foreign('series_id')->references('id')->on('series')->onDelete('cascade');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->foreign('plot_planner_id')->references('id')->on('plot_planners')->onDelete('cascade');
             $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade');
