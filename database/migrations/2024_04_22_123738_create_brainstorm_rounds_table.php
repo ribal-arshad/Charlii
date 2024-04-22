@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('brainstorm_rounds', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('title');
             $table->longText('transcript')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
