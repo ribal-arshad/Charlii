@@ -43,10 +43,10 @@
                 "scrollX": true,
                 "ajax": "{{ route('manage.users') }}",
                 "columns": [
-                    { "data" : "username","title" : "UserName", "orderable": true, "searchable": true },
+                    { "data" : "name","title" : "UserName", "orderable": true, "searchable": true },
                     { "data" : "email","title" : "Email", "orderable": true, "searchable": true },
-                    { "data" : "is_verified", "title" : "Status", "orderable": true, "searchable": true },
-                    { "data" : "is_active", "title" : "Active/InActive", "orderable": false, "searchable": false },
+                    { "data" : "email_verified_at", "title" : "Email Verified", "orderable": true, "searchable": true },
+                    { "data" : "status", "title" : "Active/InActive", "orderable": false, "searchable": false },
                     { "data" : "action","title" : "Action", "orderable": false, "searchable": false, "width": "190px" }
                 ]
             });

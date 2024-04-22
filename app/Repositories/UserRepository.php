@@ -65,14 +65,14 @@ class UserRepository implements UserRepositoryInterface
     }
 
     public function isVerified($user): bool {
-        if(!empty($user->is_verified)){
+        if(!empty($user->email_verified_at)){
             return true;
         }
         return false;
     }
 
     public function isActive($user): bool {
-        if(!empty($user->is_active)){
+        if(!empty($user->status)){
             return true;
         }
         return false;

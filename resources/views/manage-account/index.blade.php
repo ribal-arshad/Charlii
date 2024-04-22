@@ -15,7 +15,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-6">
                                     <label class="form-label">UserName</label>
-                                    <input type="text" class="form-control" name="username" value="{{old('username', $user->username)}}" placeholder="Enter username"/>
+                                    <input type="text" class="form-control" name="name" value="{{old('name', $user->name)}}" placeholder="Enter name"/>
                                 </div>
                                 <div class="col-md-6 mb-6">
                                     <label class="form-label">Email</label>
@@ -50,38 +50,6 @@
                                     </div>
                                 </div>
                             </div>
-                            @if(!empty($user->getCompany))
-                            <div class="row">
-                                <div class="col-md-6 mb-6">
-                                    <label class="form-label">Company Name</label>
-                                    <input type="text" class="form-control" name="company_name" value="{{old('company_name', $user->getCompany->name)}}" placeholder="Enter company name"/>
-                                </div>
-                                <div class="col-md-6 mb-6">
-                                    <label class="form-label">Phone</label>
-                                    <input type="text" class="form-control" name="phone" value="{{old('phone', $user->getCompany->phone)}}" placeholder="Enter phone"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-6">
-                                    <label class="form-label">Address</label>
-                                    <input type="text" class="form-control" name="address" value="{{old('address', $user->getCompany->address)}}" placeholder="Enter address"/>
-                                </div>
-                                <div class="col-md-6 mb-6">
-                                    <label class="form-label">State</label>
-                                    <input type="text" class="form-control" name="state" value="{{old('state', $user->getCompany->state)}}" placeholder="Enter state"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-6">
-                                    <label class="form-label">City</label>
-                                    <input type="text" class="form-control" name="city" value="{{old('city', $user->getCompany->city)}}" placeholder="Enter city"/>
-                                </div>
-                                <div class="col-md-6 mb-6">
-                                    <label class="form-label">Zip code</label>
-                                    <input type="text" class="form-control" name="zip" value="{{old('zip', $user->getCompany->zip)}}" placeholder="Enter zip"/>
-                                </div>
-                            </div>
-                            @endif
 
                             <div class="row profile_image_parent">
                                 <div class="col-md-6 mb-6">

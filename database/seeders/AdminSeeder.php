@@ -14,9 +14,11 @@ class AdminSeeder extends Seeder
     {
         $user = User::create([
             'email' => 'admin@admin.com',
-            'username' => 'admin',
+            'name' => 'admin',
             'password' => '123',
-            'is_verified' => 1
+            'status' => 1,
+            'user_type' => 1,
+            'email_verified_at' => now(),
         ]);
 
         $role = Role::where('name', 'Admin')->first();

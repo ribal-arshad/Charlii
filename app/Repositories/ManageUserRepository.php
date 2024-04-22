@@ -45,16 +45,15 @@ class ManageUserRepository implements ManageUserRepositoryInterface
         }
 
         $user = User::create([
-            'username' => $req->username,
+            'name' => $req->name,
             'email' => $req->email,
             'password' => $req->password,
-            'is_verified' => 1
+            'email_verified_at' => now(),
         ]);
 
         $permissions = Permission::pluck('id','id')->all();
 
         $role->syncPermissions($permissions);
-
         $user->assignRole([$role->id]);
 
         $credentials = '<br /><strong>Username:</strong> ' . $req->email . '<br /><strong>Password:</strong> ' . $req->password;
@@ -70,7 +69,7 @@ class ManageUserRepository implements ManageUserRepositoryInterface
 
         if(!empty($user)){
 
-            $userData['username'] = $req->username;
+            $userData['name'] = $req->name;
             $userData['email'] = $req->email;
             if(!empty($req->password)){
                 $userData['password'] = $req->password;
@@ -99,24 +98,24 @@ class ManageUserRepository implements ManageUserRepositoryInterface
                 $search = request('search')['value'];
                 if (!empty($search)) {
                     $instance->where(function($w) use ($search){
-                        $w->orWhere('username', 'LIKE', "%$search%")
+                        $w->orWhere('name', 'LIKE', "%$search%")
                             ->orWhere('email', 'LIKE', "%$search%");
 
-                        if(strtolower($search) === "unverified"){
-                            $w->orWhere('is_verified', 0);
-                        }elseif(strtolower($search) === "verified"){
-                            $w->orWhere('is_verified', 1);
+                        if(strtolower($search) === "Not Verified"){
+                            $w->orWhereNull('email_verified_at');
+                        }elseif(strtolower($search) === "Verified"){
+                            $w->orWhereNotNull('email_verified_at');
                         }
 
                     });
                 }
             })
             ->editColumn('is_verified', function ($obj){
-                return !empty($obj->is_verified)?"Verified":"unverified";
+                return !empty($obj->email_verified_at) ? $obj->email_verified_at->format('m-d-Y') : "Not Verified";
             })
-            ->editColumn('is_active', function ($obj) {
+            ->editColumn('status', function ($obj) {
                 $isChecked = "";
-                if(!empty($obj->is_active)){
+                if(!empty($obj->status)){
                     $isChecked = "checked";
                 }
 
@@ -139,7 +138,7 @@ class ManageUserRepository implements ManageUserRepositoryInterface
                             <a class="btn btn-primary redirect-btn" href="' . route('user.update', $obj->id) . '">Update</a>';
 
                 return $buttons . '  <button class="btn btn-danger redirect-btn" onclick="deleteData(`'. route('user.delete', $obj->id).'`)">Delete</button>';
-            })->rawColumns(['is_active', 'action'])->make(true);
+            })->rawColumns(['status', 'action'])->make(true);
     }
 
     public function changeStatus($userId){
@@ -149,7 +148,7 @@ class ManageUserRepository implements ManageUserRepositoryInterface
 
         if (!empty($user)) {
             $user->update([
-                'is_active' => !empty($user->is_active) ? 0 : 1
+                'status' => !empty($user->status) ? 0 : 1
             ]);
             $msg = "User status successfully changed.";
             $code = 200;

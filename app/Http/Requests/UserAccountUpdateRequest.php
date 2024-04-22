@@ -27,25 +27,15 @@ class UserAccountUpdateRequest extends FormRequest
     {
         if (Auth::user()->getRoleNames()[0] !== User::ADMIN){
             return [
-                'username' => 'required|alpha|max:255',
+                'name' => 'required|alpha|max:255',
                 'email' => 'required|unique:users,email,'.Auth::id().'|max:255',
                 'password' => 'sometimes|nullable|min:8|max:255|confirmed',
-                'profile_picture' => 'sometimes|nullable|image|max:2048',
-                'company_name' => 'required|max:255',
-                'phone' => 'required|digits_between:1,25',
-                'address' => 'required|max:255',
-                'state' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
-                'city' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
-                'zip' => 'required|max:255'
             ];
         }else{
             return [
-                'username' => 'required|alpha|max:255',
+                'name' => 'required|alpha|max:255',
                 'email' => 'required|unique:users,email,'.Auth::id().'|max:255',
                 'password' => 'sometimes|nullable|min:8|max:255|confirmed',
-                'profile_picture' => 'sometimes|nullable|image|max:2048',
-                'state.regex' => 'The state must be a alphabet only.',
-                'city.regex' => 'The city must be a alphabet only.'
             ];
         }
 

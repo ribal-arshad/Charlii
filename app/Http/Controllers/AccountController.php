@@ -16,7 +16,7 @@ class AccountController extends Controller
 {
     public function index(){
 
-        $user = User::where('id', Auth::id())->with('getCompany')->first();
+        $user = User::where('id', Auth::id())->first();
 
         return view('manage-account.index', compact('user'));
     }
@@ -25,7 +25,7 @@ class AccountController extends Controller
 
         $user = User::where('id', Auth::id())->with('getCompany')->first();
 
-        $userData['username'] = $request->username;
+        $userData['name'] = $request->name;
         $userData['email'] = $request->email;
 
         if(!empty($request->password)){
@@ -56,19 +56,6 @@ class AccountController extends Controller
         }
 
         $user->update($userData);
-
-        if(!empty($user->getCompany)){
-            $company = Company::find($user->getCompany->id);
-
-            $company->update([
-                'name' => $request->company_name,
-                'address' => $request->address,
-                'state' => $request->state,
-                'city' => $request->city,
-                'zip' => $request->zip,
-                'phone' => $request->phone
-            ]);
-        }
 
         return redirect()->back()->with('success_msg', 'Account successfully updated.');
     }
