@@ -1,0 +1,59 @@
+<?php
+
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ManageUserController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+
+Route::group(['middleware' => ['web','guest', 'throttle']], function (){
+
+    Route::controller(UserController::class)->group(function () {
+
+        Route::get('/login', 'login')->name('admin.login');
+        Route::post('/login', 'loginData')->name('admin.login.data');
+        Route::get('/forgot-password', 'forgotPassword')->name('admin.forgot.password');
+        Route::post('/forgot-password', 'forgotPasswordData')->name('admin.forgot.password.data');
+        Route::get('/reset-password/{token}', 'resetPassword')->name('admin.reset.password');
+        Route::post('/reset-password/{token}', 'resetPasswordData')->name('admin.reset.password.data');
+
+    });
+
+});
+
+
+//Route::group(['middleware' => ['auth', 'permission']],function () {
+Route::group(['middleware' => ['auth']],function () {
+
+    Route::get('/logout', [UserController::class, 'logout'])->name('admin.logout');
+
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::controller(ManageUserController::class)->group(function () {
+        Route::get('/manage-users', 'manageUser')->name('manage.users');
+        Route::get('/add-user', 'addUser')->name('user.add');
+        Route::post('/add-user', 'addUserData')->name('user.add.data');
+        Route::get('/update-user/{userId}', 'updateUser')->name('user.update');
+        Route::post('/update-user/{userId}', 'updateUserData')->name('user.update.data');
+        Route::get('/user-detail/{userId}', 'getUserDetail')->name('user.detail');
+        Route::get('/change-user-status/{companyId}', 'changeUserStatus')->name('user.change.status');
+        Route::get('/delete-user/{userId}', 'deleteUser')->name('user.delete');
+    });
+
+    Route::controller(AccountController::class)->group(function () {
+        Route::get('/manage-account', 'index')->name('manage.account');
+        Route::post('/manage-account-data', 'manageAccountData')->name('manage.account.data');
+    });
+});
