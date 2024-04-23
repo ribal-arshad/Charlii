@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Roles')
+@section('title', 'Manage User Gallery')
 
 @push('styles')
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}" />
@@ -11,10 +11,8 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
             <div class="card-header">
-                <h5 class="float-start">Roles</h5>
-                @can('role.add')
-                <a href="{{route('role.add')}}" class="btn btn-primary float-end redirect-btn">Add +</a>
-                @endcan
+                <h5 class="float-start">Manage User Gallery</h5>
+                <a href="{{route('user.gallery.add')}}" class="btn btn-primary float-end redirect-btn">Add +</a>
             </div>
             <div class="card-datatable text-nowrap">
                 <div class="row">
@@ -43,9 +41,10 @@
                 'iDisplayLength':50,
                 "orderMulti": true,
                 "scrollX": true,
-                "ajax": "{{ route('manage.roles') }}",
+                "ajax": "{{ route('manage.user.gallery') }}",
                 "columns": [
-                    { "data" : "name","title" : "Name", "orderable": true, "searchable": true },
+                    { "data" : "user","title" : "User", "orderable": true, "searchable": true },
+                    { "data" : "image","title" : "Image", "orderable": false, "searchable": false },
                     { "data" : "status", "title" : "Active/InActive", "orderable": false, "searchable": false },
                     { "data" : "action","title" : "Action", "orderable": false, "searchable": false, "width": "190px" }
                 ]
@@ -54,13 +53,11 @@
 
         function changeStatus(route) {
             axios.get(route).then(function (response) {
-                console.log(route)
                 swal({
                     title: response.data.msg,
                     icon: "success",
                     closeOnClickOutside: false
                 }).then((successBtn) => {
-                    console.log('ZZZZ', successBtn)
                     if (successBtn) {
                         $('#custom_datatable').DataTable().ajax.reload();
                     }
@@ -73,6 +70,20 @@
                     closeOnClickOutside: false
                 });
             });
+        }
+
+        function deleteData(route) {
+            swal({
+                title: "Are You Sure?",
+                icon: "warning",
+                closeOnClickOutside: false,
+                buttons:{cancel:true,confirm:"Yes, delete it!"},
+                dangerMode: true
+            }).then((btn) => {
+                if(btn){
+                    window.location.href = route;
+                }
+            })
         }
     </script>
 @endpush

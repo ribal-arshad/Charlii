@@ -78,26 +78,38 @@ class ManageRoleRepository implements ManageRoleRepositoryInterface
                     $isChecked = "checked";
                 }
 
-                $switchBtn = '<label class="switch switch-success">
-                                        <input type="checkbox" class="switch-input" '.$isChecked.' onclick="changeStatus(`'.route('role.change.status', $obj->id).'`)" />
-                                        <span class="switch-toggle-slider">
-                                          <span class="switch-on">
-                                            <i class="bx bx-check"></i>
-                                          </span>
-                                          <span class="switch-off">
-                                            <i class="bx bx-x"></i>
-                                          </span>
-                                        </span>
-                                    </label>';
+                if (auth()->user()->can('role.status.update')) {
+                    $switchBtn = '<label class="switch switch-success">
+                                            <input type="checkbox" class="switch-input" ' . $isChecked . ' onclick="changeStatus(`' . route('role.change.status', $obj->id) . '`)" />
+                                            <span class="switch-toggle-slider">
+                                              <span class="switch-on">
+                                                <i class="bx bx-check"></i>
+                                              </span>
+                                              <span class="switch-off">
+                                                <i class="bx bx-x"></i>
+                                              </span>
+                                            </span>
+                                        </label>';
+                } else {
+                    $switchBtn = $obj->status === 1 ? 'Active' : 'Inactive';
+                }
 
                 return $switchBtn;
             })
             ->addColumn('action', function ($obj) {
-                $buttons = '<div class="btn-group"><a class="btn btn-primary btn-sm redirect-btn" href="' . route('role.detail', $obj->id) . '">Show</a>
-                            <a class="btn btn-success btn-sm redirect-btn" href="' . route('role.update', $obj->id) . '">Edit</a> </div>';
+                $buttons = '<div class="btn-group">';
+                if(auth()->user()->can('role.detail')) {
+                    $buttons .= '<a class="btn btn-primary btn-sm redirect-btn" href="' . route('role.detail', $obj->id) . '">Show</a>';
+                }
+                if(auth()->user()->can('role.edit')) {
+                    $buttons .= '<a class="btn btn-success btn-sm redirect-btn" href="' . route('role.update', $obj->id) . '">Edit</a>';
+                }
+
+                $buttons .= '</div>';
 
                 return $buttons;
-            })->rawColumns(['role_permissions', 'status', 'action'])->make(true);
+            })
+            ->rawColumns(['role_permissions', 'status', 'action'])->make(true);
     }
 
     public function changeStatus($roleId)

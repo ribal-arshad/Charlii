@@ -33,9 +33,12 @@ class SyncPermissionSeeder extends Seeder
     public function run(){
         $roles = Role::get();
 
-        foreach ($roles as $val) {
-            $permissions = Permission::whereIn('name', self::DATA[$val->name])->pluck('id','id')->all();
-            $val->syncPermissions($permissions);
+        foreach ($roles as $role) {
+            if ($role->name === 'User') {
+                $role->syncPermissions([]);
+            } elseif ($role->name === 'Admin') {
+                $role->syncPermissions(Permission::pluck('id')->all());
+            }
         }
     }
 }

@@ -135,25 +135,38 @@ class ManageUserRepository implements ManageUserRepositoryInterface
                     $isChecked = "checked";
                 }
 
-                $switchBtn = '<label class="switch switch-success">
-                                        <input type="checkbox" class="switch-input" '.$isChecked.' onclick="changeStatus(`'.route('user.change.status', $obj->id).'`)" />
-                                        <span class="switch-toggle-slider">
-                                          <span class="switch-on">
-                                            <i class="bx bx-check"></i>
-                                          </span>
-                                          <span class="switch-off">
-                                            <i class="bx bx-x"></i>
-                                          </span>
-                                        </span>
-                                    </label>';
-
+                $switchBtn = '';
+                if(auth()->user()->can('user.change.status')) {
+                    $switchBtn = '<label class="switch switch-success">
+                        <input type="checkbox" class="switch-input" '.$isChecked.' onclick="changeStatus(`'.route('user.change.status', $obj->id).'`)" />
+                        <span class="switch-toggle-slider">
+                          <span class="switch-on">
+                            <i class="bx bx-check"></i>
+                          </span>
+                          <span class="switch-off">
+                            <i class="bx bx-x"></i>
+                          </span>
+                        </span>
+                      </label>';
+                } else {
+                    $switchBtn = $obj->status === 1 ? 'Active' : 'Inactive';
+                }
                 return $switchBtn;
             })
             ->addColumn('action', function ($obj) {
-                $buttons = '<a class="btn btn-primary redirect-btn" href="' . route('user.detail', $obj->id) . '">Show</a>
-                            <a class="btn btn-primary redirect-btn" href="' . route('user.update', $obj->id) . '">Update</a>';
+                $buttons = '';
 
-                return $buttons . '  <button class="btn btn-danger redirect-btn" onclick="deleteData(`'. route('user.delete', $obj->id).'`)">Delete</button>';
+                if(auth()->user()->can('user.update')) {
+                    $buttons .= '<a class="btn btn-primary btn-sm redirect-btn" href="' . route('user.detail', $obj->id) . '">Show</a>';
+                }
+                if(auth()->user()->can('user.detail')) {
+                    $buttons .= '<a class="btn btn-primary btn-sm redirect-btn" href="' . route('user.update', $obj->id) . '">Update</a>';
+                }
+                if(auth()->user()->can('user.delete')) {
+                    $buttons .= '<button class="btn btn-danger btn-sm redirect-btn" onclick="deleteData(`'. route('user.delete', $obj->id).'`)">Delete</button>';
+                }
+
+                return $buttons;
             })->rawColumns(['status', 'action'])->make(true);
     }
 

@@ -13,7 +13,11 @@ class UserStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if (auth()->user()->can('user.add.data')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

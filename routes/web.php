@@ -5,6 +5,7 @@ use App\Http\Controllers\ManageRoleController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserGalleryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +65,19 @@ Route::group(['middleware' => ['auth']],function () {
             Route::post('/update/{roleId}', 'updateRoleData')->name('role.update.data');
             Route::get('/role-detail/{roleId}', 'getRoleDetail')->name('role.detail');
             Route::get('/change-role-status/{roleId}', 'changeRoleStatus')->name('role.change.status');
+        });
+    });
+
+    Route::prefix('admin/user-gallery')->group(function () {
+        Route::controller(UserGalleryController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.user.gallery');
+            Route::get('/add', 'addImage')->name('user.gallery.add');
+            Route::post('/add', 'addImageData')->name('user.gallery.add.data');
+            Route::get('/update/{imageId}', 'updateImage')->name('user.gallery.update');
+            Route::post('/update/{imageId}', 'updateImageData')->name('user.gallery.update.data');
+            Route::get('/image-detail/{imageId}', 'getImageDetail')->name('user.gallery.detail');
+            Route::get('/change-role-status/{imageId}', 'changeImageStatus')->name('image.change.status');
+            Route::get('/delete/{imageId}', 'deleteImage')->name('user.gallery.delete');
         });
     });
 

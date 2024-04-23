@@ -22,9 +22,22 @@ class PermissionSeeder extends Seeder
         "user.add",
         "user.add.data",
         "user.update",
+        "user.change.status",
         "user.update.data",
         "user.detail",
-        "user.delete"
+        "user.delete",
+        "role.access",
+        "role.add",
+        "role.edit",
+        "role.delete",
+        "role.status.update",
+        "role.detail",
+        "user.gallery.access",
+        "user.gallery.status.update",
+        "user.gallery.add",
+        "user.gallery.edit",
+        "user.gallery.detail",
+        "user.gallery.delete",
     ];
 
     public function run(){

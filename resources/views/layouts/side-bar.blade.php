@@ -26,6 +26,7 @@
             </a>
         </li>
 
+        @can('manage.users')
         @php($user_routes = ['manage.users', 'user.add', 'user.update', 'user.detail'])
         <li @class(['menu-item', 'active' => isRouteActive($user_routes)])>
             <a href="{{route('manage.users')}}" class="menu-link">
@@ -33,7 +34,9 @@
                 <div data-i18n="Manage Users">Manage Users</div>
             </a>
         </li>
+        @endcan
 
+        @can('role.access')
         @php($roles_routes = ['manage.roles', 'role.update', 'role.detail', 'role.add'])
         <li @class(['menu-item', 'active' => isRouteActive($roles_routes)])>
             <a href="{{route('manage.roles')}}" class="menu-link">
@@ -41,6 +44,16 @@
                 <div data-i18n="Roles">Roles</div>
             </a>
         </li>
+        @endcan
 
+        @can('user.gallery.access')
+            @php($gallery_routes = ['manage.user.gallery', 'user.gallery.add', 'user.gallery.update', 'user.gallery.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($gallery_routes)])>
+                <a href="{{route('manage.user.gallery')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-image-alt"></i>
+                    <div data-i18n="User Gallery">User Gallery</div>
+                </a>
+            </li>
+        @endcan
     </ul>
 </aside>

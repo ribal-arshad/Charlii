@@ -10,7 +10,8 @@ use Spatie\Permission\Models\Role;
 class RoleSeeder extends Seeder
 {
     const ROLES = [
-        'Admin'
+        'Admin',
+        'User'
     ];
 
     public function run()

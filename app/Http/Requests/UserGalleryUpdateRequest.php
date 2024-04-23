@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RoleUpdateRequest extends FormRequest
+class UserGalleryUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        if (auth()->user()->can('role.edit ')) {
+        if (auth()->user()->can('user.gallery.edit')) {
             return true;
         } else {
             return false;
@@ -26,9 +26,9 @@ class RoleUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:roles,name,' . request()->route('roleId'),
-            'status' => 'required|boolean',
-            'permissions' => 'nullable|array',
+            'image' => ['sometimes', 'image', 'mimes:png,jpg,jpeg', 'max:5000'],
+            'user_id' => ['required'],
+            'status' => ['required', 'boolean'],
         ];
     }
 }

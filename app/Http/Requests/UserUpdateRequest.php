@@ -14,7 +14,11 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if (auth()->user()->can('user.update.data')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

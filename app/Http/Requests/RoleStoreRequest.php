@@ -11,7 +11,11 @@ class RoleStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        if (auth()->user()->can('role.add')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
