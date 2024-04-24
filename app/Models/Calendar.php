@@ -23,11 +23,6 @@ class Calendar extends Model
         'color_id',
     ];
 
-    public function getEventDateAttribute($value)
-    {
-        return $value ? Carbon::parse($value)->format('H:i:s') : null;
-    }
-
     public function getEventDateFormattedAttribute($value)
     {
         return (new Carbon($value))->format('F d, Y');
@@ -35,7 +30,7 @@ class Calendar extends Model
 
     public function setEventDateAttribute($value)
     {
-        $this->attributes['event_date'] = $value ? Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d') : null;
+        $this->attributes['event_date'] = date('Y-m-d', strtotime($value));
     }
 
     public function user()

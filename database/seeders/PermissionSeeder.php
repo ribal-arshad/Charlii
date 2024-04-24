@@ -38,6 +38,23 @@ class PermissionSeeder extends Seeder
         "user.gallery.edit",
         "user.gallery.detail",
         "user.gallery.delete",
+        "color.access",
+        "color.status.update",
+        "color.add",
+        "color.edit",
+        "color.detail",
+        "color.delete",
+        "calendar.access",
+        "calendar.add",
+        "calendar.edit",
+        "calendar.detail",
+        "calendar.delete",
+        "series.access",
+        "series.add",
+        "series.edit",
+        "series.detail",
+        "series.status.update",
+        "series.delete",
     ];
 
     public function run(){

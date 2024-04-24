@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('group_user_pivot', function (Blueprint $table) {
+        Schema::create('group_user', function (Blueprint $table) {
             $table->unsignedBigInteger('group_id');
             $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('group_user_pivot');
+        Schema::dropIfExists('group_user');
     }
 };

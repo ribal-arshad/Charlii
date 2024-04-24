@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('book_series_pivot', function (Blueprint $table) {
+        Schema::create('book_series', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('series_id');
             $table->foreign('series_id')->references('id')->on('series')->onDelete('cascade');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('book_series_pivot');
+        Schema::dropIfExists('book_series');
     }
 };

@@ -55,5 +55,35 @@
                 </a>
             </li>
         @endcan
+
+        @can('color.access')
+            @php($color_routes = ['manage.colors', 'color.add', 'color.update', 'color.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($color_routes)])>
+                <a href="{{route('manage.colors')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-color-fill"></i>
+                    <div data-i18n="Colors">Colors</div>
+                </a>
+            </li>
+        @endcan
+
+        @can('calendar.access')
+            @php($calendar_routes = ['manage.calendars', 'calendar.add', 'calendar.update', 'calendar.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($calendar_routes)])>
+                <a href="{{route('manage.calendars')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-calendar"></i>
+                    <div data-i18n="Calendars">Calendars</div>
+                </a>
+            </li>
+        @endcan
+
+        @can('series.access')
+            @php($series_routes = ['manage.series', 'series.add', 'series.update', 'series.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($series_routes)])>
+                <a href="{{route('manage.series')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-movie"></i>
+                    <div data-i18n="Series">Series</div>
+                </a>
+            </li>
+        @endcan
     </ul>
 </aside>

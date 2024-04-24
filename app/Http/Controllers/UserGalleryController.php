@@ -29,7 +29,7 @@ class UserGalleryController extends Controller
 
     public function addImage()
     {
-        $users = User::where('status', 1)->get();
+        $users = User::where('status', 1)->where('id', '!=', 1)->get();
 
         return view('user-gallery.add', compact('users'));
     }
@@ -41,7 +41,7 @@ class UserGalleryController extends Controller
 
     public function updateImage($imageId)
     {
-        $users = User::where('status', 1)->get();
+        $users = User::where('status', 1)->where('id', '!=', 1)->get();
         $image = UserGallery::findorfail($imageId);
 
         if (!empty($image)) {

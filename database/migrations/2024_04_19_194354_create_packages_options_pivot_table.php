@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('packages_options_pivot', function (Blueprint $table) {
+        Schema::create('packages_options', function (Blueprint $table) {
             $table->unsignedBigInteger('package_id');
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
             $table->unsignedBigInteger('package_option_id');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('packages_options_pivot');
+        Schema::dropIfExists('packages_options');
     }
 };

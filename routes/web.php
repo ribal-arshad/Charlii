@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ManageRoleController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserGalleryController;
 use Illuminate\Support\Facades\Route;
@@ -76,8 +79,47 @@ Route::group(['middleware' => ['auth']],function () {
             Route::get('/update/{imageId}', 'updateImage')->name('user.gallery.update');
             Route::post('/update/{imageId}', 'updateImageData')->name('user.gallery.update.data');
             Route::get('/image-detail/{imageId}', 'getImageDetail')->name('user.gallery.detail');
-            Route::get('/change-role-status/{imageId}', 'changeImageStatus')->name('image.change.status');
+            Route::get('/change-image-status/{imageId}', 'changeImageStatus')->name('image.change.status');
             Route::get('/delete/{imageId}', 'deleteImage')->name('user.gallery.delete');
+        });
+    });
+
+    Route::prefix('admin/colors')->group(function () {
+        Route::controller(ColorController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.colors');
+            Route::get('/add', 'addColor')->name('color.add');
+            Route::post('/add', 'addColorData')->name('color.add.data');
+            Route::get('/update/{colorId}', 'updateColor')->name('color.update');
+            Route::post('/update/{colorId}', 'updateColorData')->name('color.update.data');
+            Route::get('/color-detail/{colorId}', 'getColorDetail')->name('color.detail');
+            Route::get('/change-color-status/{colorId}', 'changeColorStatus')->name('color.change.status');
+            Route::get('/delete/{colorId}', 'deleteColor')->name('color.delete');
+        });
+    });
+
+    Route::prefix('admin/calendars')->group(function () {
+        Route::controller(CalendarController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.calendars');
+            Route::get('/add', 'addCalendar')->name('calendar.add');
+            Route::post('/add', 'addCalendarData')->name('calendar.add.data');
+            Route::get('/update/{calendarId}', 'updateCalendar')->name('calendar.update');
+            Route::post('/update/{calendarId}', 'updateCalendarData')->name('calendar.update.data');
+            Route::get('/calendar-detail/{calendarId}', 'calendarDetail')->name('calendar.detail');
+            Route::get('/delete/{calendarId}', 'deleteCalendar')->name('calendar.delete');
+        });
+    });
+
+    Route::prefix('admin/series')->group(function () {
+        Route::controller(SeriesController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.series');
+            Route::get('/add', 'addSeries')->name('series.add');
+            Route::post('/add', 'addSeriesData')->name('series.add.data');
+            Route::get('/update/{seriesId}', 'updateSeries')->name('series.update');
+            Route::post('/update/{seriesId}', 'updateSeriesData')->name('series.update.data');
+            Route::get('/series-detail/{seriesId}', 'getSeriesDetail')->name('series.detail');
+            Route::get('/change-series-status/{seriesId}', 'changeSeriesStatus')->name('series.change.status');
+            Route::get('/delete/{seriesId}', 'deleteSeries')->name('series.delete');
+            Route::get('/get-user-books', 'getUserBooks')->name('user.books');
         });
     });
 

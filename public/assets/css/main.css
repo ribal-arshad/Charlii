@@ -7,6 +7,21 @@
   height: 64px;
 }
 
+.color-block {
+    display: inline-flex;
+    align-items: center;
+}
+.color-block span {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    border-radius: 50%;
+    border: 1px solid white;
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(209, 209, 209, 1);
+    -moz-box-shadow: 0px 0px 10px 1px rgba(209, 209, 209, 1);
+    box-shadow: 0px 0px 10px 1px rgba(209, 209, 209, 1);
+}
+
 .dark-style .menu .app-brand.demo {
   height: 64px;
 }
