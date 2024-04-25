@@ -75,7 +75,7 @@ class SeriesController extends Controller
         return $this->seriesRepository->changeStatus($seriesId);
     }
 
-    public function deleteColor($seriesId)
+    public function deleteSeries($seriesId)
     {
         return $this->seriesRepository->deleteSeries($seriesId);
     }

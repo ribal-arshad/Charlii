@@ -85,5 +85,55 @@
                 </a>
             </li>
         @endcan
+
+        @can('book.access')
+            @php($book_routes = ['manage.books', 'book.add', 'book.update', 'book.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($book_routes)])>
+                <a href="{{route('manage.books')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-book"></i>
+                    <div data-i18n="Books">Books</div>
+                </a>
+            </li>
+        @endcan
+
+        @can('premise.access')
+            @php($premise_routes = ['manage.premises', 'premise.add', 'premise.update', 'premise.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($premise_routes)])>
+                <a href="{{route('manage.premises')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-building-house"></i>
+                    <div data-i18n="Premises">Premises</div>
+                </a>
+            </li>
+        @endcan
+
+        @can('outline.access')
+            @php($outline_routes = ['manage.outlines', 'outline.add', 'outline.update', 'outline.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($outline_routes)])>
+                <a href="{{route('manage.outlines')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-square"></i>
+                    <div data-i18n="Outlines">Outlines</div>
+                </a>
+            </li>
+        @endcan
+
+        @can('chapter.access')
+            @php($chapter_routes = ['manage.chapters', 'chapter.add', 'chapter.update', 'chapter.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($chapter_routes)])>
+                <a href="{{route('manage.chapters')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-book-open"></i>
+                    <div data-i18n="Chapters">Chapters</div>
+                </a>
+            </li>
+        @endcan
+
+        @can('card.access')
+            @php($card_routes = ['manage.cards', 'card.add', 'card.update', 'card.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($card_routes)])>
+                <a href="{{route('manage.cards')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
+                    <div data-i18n="Chapter Cards">Chapter Cards</div>
+                </a>
+            </li>
+        @endcan
     </ul>
 </aside>

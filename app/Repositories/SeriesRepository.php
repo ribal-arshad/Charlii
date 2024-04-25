@@ -41,6 +41,7 @@ class SeriesRepository implements SeriesRepositoryInterface
             'is_finished' => $seriesDetails->is_finished,
             'status' => $seriesDetails->status,
         ]);
+        $series->books()->sync($seriesDetails->input('books', []));
 
         return redirect()->route('manage.series')->with('success_msg', 'Series successfully added.');
     }
@@ -59,6 +60,7 @@ class SeriesRepository implements SeriesRepositoryInterface
                 'is_finished' => $seriesDetails['is_finished'],
                 'status' => $seriesDetails['status'],
             ]);
+            $series->books()->sync($seriesDetails->input('books', []));
 
             return redirect()->route('manage.series')->with('success_msg', 'Series successfully updated.');
         }
@@ -68,7 +70,7 @@ class SeriesRepository implements SeriesRepositoryInterface
 
     public function getDataTable(){
 
-        $query = Series::get();
+        $query = Series::query();
 
         return Datatables::of($query)
             ->filter(function ($instance) {

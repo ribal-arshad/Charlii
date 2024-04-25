@@ -1,15 +1,15 @@
 @extends('layouts.master')
 
-@section('title', 'Add Series')
+@section('title', 'Add Premise')
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header">Add Series</h5>
+                    <h5 class="card-header">Add Premise</h5>
                     <div class="card-body">
-                        <form action="{{route('series.add.data')}}" method="POST">
+                        <form action="{{route('premise.add.data')}}" method="POST">
                             @csrf
                             @include('partials.alert')
                             <div class="row mt-3">
@@ -33,28 +33,31 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-6 mb-6">
-                                    <label class="form-label">Series Title
-                                        <i class="fa fa-asterisk small-font text-danger" aria-hidden="true"></i>
-                                    </label>
-                                    <input type="text" class="form-control" name="series_name" value="{{old('series_name')}}" placeholder="Enter series name"/>
+                                    <label class="form-label">Series</label>
+                                    <select class="form-control" name="series_id" id="series">
+                                    </select>
                                 </div>
                                 <div class="col-md-6 mb-6">
-                                    <label class="form-label">Series Description
-                                        <i class="fa fa-asterisk small-font text-danger" aria-hidden="true"></i>
-                                    </label>
-                                    <textarea class="form-control" name="series_description" placeholder="Enter series description" cols="3" rows="3">{{ old('series_description') }}</textarea>
+                                    <label class="form-label">Books</label>
+                                    <select class="form-control" name="book_id" id="books">
+                                    </select>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-6 mb-6">
-                                    <label class="form-label">Is Finished
+                                    <label class="form-label">Premise Name
                                         <i class="fa fa-asterisk small-font text-danger" aria-hidden="true"></i>
                                     </label>
-                                    <select name="is_finished" id="is_finished" class="form-select">
-                                        <option value="1">Yes</option>
-                                        <option value="0">No</option>
-                                    </select>
+                                    <input type="text" class="form-control" name="premise_name" value="{{old('premise_name')}}" placeholder="Enter premise name"/>
                                 </div>
+                                <div class="col-md-6 mb-6">
+                                    <label class="form-label">Premise Description
+                                        <i class="fa fa-asterisk small-font text-danger" aria-hidden="true"></i>
+                                    </label>
+                                    <textarea class="form-control" name="description" placeholder="Enter series description" cols="3" rows="3">{{ old('description') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
                                 <div class="col-md-6 mb-6">
                                     <label class="form-label">Status
                                         <i class="fa fa-asterisk small-font text-danger" aria-hidden="true"></i>
@@ -66,19 +69,8 @@
                                 </div>
                             </div>
                             <div class="row mt-3">
-                                <div class="col-md-6 mb-6">
-                                    <label class="form-label">Books</label>
-                                    <select class="form-control" name="books[]" multiple>
-                                    </select>
-                                    <div class="mt-2">
-                                        <button type="button" class="btn btn-primary btn-xs" id="select-all">Select All</button>
-                                        <button type="button" class="btn btn-danger btn-xs" id="deselect-all">Deselect All</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
                                 <div class="col-md-12">
-                                    <a href="{{route('manage.series')}}" class="btn btn-danger redirect-btn">Back</a>
+                                    <a href="{{route('manage.premises')}}" class="btn btn-danger redirect-btn">Back</a>
                                     <button type="submit" class="btn btn-primary" onclick="showLoader()">Add</button>
                                 </div>
                             </div>
@@ -93,37 +85,54 @@
     <script>
         $(document).ready(function() {
             $('select.select2').select2();
+
             $('select[name="user_id"]').change(function() {
-                var userId = $(this).val();
+                let userId = $(this).val();
 
                 $.ajax({
-                    url: '{{ route('user.books') }}',
+                    url: '{{ route('user.series') }}',
                     method: 'GET',
                     data: {
                         user_id: userId
                     },
                     success: function(response) {
-                        let defaultOption = '<option value="">Select Book</option>';
+                        let defaultOption = '<option value="">Select Series</option>';
 
-                        $('select[name="books[]"]').html(defaultOption + response.options);
-                        $('select[name="books[]"]').select2();
+                        $('select[name="series_id"]').html(defaultOption + response.options);
+                        $('select[name="series_id"]').select2();
                     },
                     error: function(xhr) {
                         console.log(xhr.responseText);
                     }
                 });
             });
-            $('select[name="books[]"]').select2();
+            $('select[name="series_id"]').select2();
 
-            $('#select-all').on('click', function() {
-                $('select[name="books[]"] option').prop('selected', true);
-                $('select[name="books[]"]').trigger('change');
-            });
+            $('select[name="series_id"]').change(function() {
+                let seriesId = $(this).val();
 
-            $('#deselect-all').on('click', function() {
-                $('select[name="books[]"] option').prop('selected', false);
-                $('select[name="books[]"]').trigger('change');
+                $.ajax({
+                    url: '{{ route('book.series') }}',
+                    method: 'GET',
+                    data: {
+                        series_id: seriesId
+                    },
+                    success: function(response) {
+                        let defaultOption = '<option value="">Select Book</option>';
+
+                        let optionsHtml = '';
+                        response.options.forEach(function(option) {
+                            optionsHtml += '<option value="' + option.id + '">' + option.book_name + '</option>';
+                        });
+                        $('select[name="book_id"]').html(defaultOption + optionsHtml);
+                        $('select[name="book_id"]').select2();
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
             });
         });
     </script>
 @endpush
+

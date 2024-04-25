@@ -113,7 +113,9 @@
                         user_id: userId
                     },
                     success: function(response) {
-                        $('select[name="books[]"]').html(response.options);
+                        let defaultOption = '<option value="">Select Book</option>';
+
+                        $('select[name="books[]"]').html(defaultOption + response.options);
                         $('select[name="books[]"]').select2();
                     },
                     error: function(xhr) {

@@ -2,17 +2,27 @@
 
 namespace App\Providers;
 
+use App\Interfaces\BookRepositoryInterface;
 use App\Interfaces\CalendarRepositoryInterface;
+use App\Interfaces\ChapterCardRepositoryInterface;
+use App\Interfaces\ChapterRepositoryInterface;
 use App\Interfaces\ColorRepositoryInterface;
 use App\Interfaces\ManageRoleRepositoryInterface;
 use App\Interfaces\ManageUserRepositoryInterface;
+use App\Interfaces\OutlineRepositoryInterface;
+use App\Interfaces\PremiseRepositoryInterface;
 use App\Interfaces\SeriesRepositoryInterface;
 use App\Interfaces\UserGalleryRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
+use App\Repositories\BookRepository;
 use App\Repositories\CalendarRepository;
+use App\Repositories\ChapterCardRepository;
+use App\Repositories\ChapterRepository;
 use App\Repositories\ColorRepository;
 use App\Repositories\ManageRoleRepository;
 use App\Repositories\ManageUserRepository;
+use App\Repositories\OutlineRepository;
+use App\Repositories\PremiseRepository;
 use App\Repositories\SeriesRepository;
 use App\Repositories\UserGalleryRepository;
 use App\Repositories\UserRepository;
@@ -44,5 +54,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ColorRepositoryInterface::class, ColorRepository::class);
         $this->app->bind(CalendarRepositoryInterface::class, CalendarRepository::class);
         $this->app->bind(SeriesRepositoryInterface::class, SeriesRepository::class);
-    }
+        $this->app->bind(BookRepositoryInterface::class, BookRepository::class);
+        $this->app->bind(PremiseRepositoryInterface::class, PremiseRepository::class);
+        $this->app->bind(OutlineRepositoryInterface::class, OutlineRepository::class);
+        $this->app->bind(ChapterRepositoryInterface::class, ChapterRepository::class);
+        $this->app->bind(ChapterCardRepositoryInterface::class, ChapterCardRepository::class);}
 }

@@ -1,11 +1,16 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\ChapterCardController;
+use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ManageRoleController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OutlineController;
+use App\Http\Controllers\PremiseController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserGalleryController;
@@ -120,6 +125,76 @@ Route::group(['middleware' => ['auth']],function () {
             Route::get('/change-series-status/{seriesId}', 'changeSeriesStatus')->name('series.change.status');
             Route::get('/delete/{seriesId}', 'deleteSeries')->name('series.delete');
             Route::get('/get-user-books', 'getUserBooks')->name('user.books');
+        });
+    });
+
+    Route::prefix('admin/book')->group(function () {
+        Route::controller(BookController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.books');
+            Route::get('/add', 'addBook')->name('book.add');
+            Route::post('/add', 'addBookData')->name('book.add.data');
+            Route::get('/update/{bookId}', 'updateBook')->name('book.update');
+            Route::post('/update/{bookId}', 'updateBookData')->name('book.update.data');
+            Route::get('/book-detail/{bookId}', 'getBookDetail')->name('book.detail');
+            Route::get('/change-book-status/{bookId}', 'changeBookStatus')->name('book.change.status');
+            Route::get('/delete/{bookId}', 'deleteBook')->name('book.delete');
+            Route::get('/get-user-series', 'getUserSeries')->name('user.series');
+            Route::get('/get-book/by-series', 'getBookBySeries')->name('book.series');
+        });
+    });
+
+    Route::prefix('admin/premises')->group(function () {
+        Route::controller(PremiseController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.premises');
+            Route::get('/add', 'addPremise')->name('premise.add');
+            Route::post('/add', 'addPremiseData')->name('premise.add.data');
+            Route::get('/update/{premiseId}', 'updatePremise')->name('premise.update');
+            Route::post('/update/{premiseId}', 'updatePremiseData')->name('premise.update.data');
+            Route::get('/premise-detail/{premiseId}', 'getPremiseDetail')->name('premise.detail');
+            Route::get('/change-premise-status/{premiseId}', 'changePremiseStatus')->name('premise.change.status');
+            Route::get('/delete/{premiseId}', 'deletePremise')->name('premise.delete');
+        });
+    });
+
+    Route::prefix('admin/outlines')->group(function () {
+        Route::controller(OutlineController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.outlines');
+            Route::get('/add', 'addOutline')->name('outline.add');
+            Route::post('/add', 'addOutlineData')->name('outline.add.data');
+            Route::get('/update/{outlineId}', 'updateOutline')->name('outline.update');
+            Route::post('/update/{outlineId}', 'updateOutlineData')->name('outline.update.data');
+            Route::get('/outline-detail/{outlineId}', 'getOutlineDetail')->name('outline.detail');
+            Route::get('/change-outline-status/{outlineId}', 'changeOutlineStatus')->name('outline.change.status');
+            Route::get('/delete/{outlineId}', 'deleteOutline')->name('outline.delete');
+            Route::get('/get-outline/by-book', 'getOutlineByBook')->name('outline.book');
+        });
+    });
+
+    Route::prefix('admin/chapters')->group(function () {
+        Route::controller(ChapterController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.chapters');
+            Route::get('/add', 'addChapter')->name('chapter.add');
+            Route::post('/add', 'addChapterData')->name('chapter.add.data');
+            Route::get('/update/{chapterId}', 'updateChapter')->name('chapter.update');
+            Route::post('/update/{chapterId}', 'updateChapterData')->name('chapter.update.data');
+            Route::get('/chapter-detail/{chapterId}', 'getChapterDetail')->name('chapter.detail');
+            Route::get('/change-chapter-status/{chapterId}', 'changeChapterStatus')->name('chapter.change.status');
+            Route::get('/delete/{chapterId}', 'deleteChapter')->name('chapter.delete');
+            Route::geT('/get_chapter/by-outline', 'getChapterByOutline')->name('chapter.outline');
+        });
+    });
+
+    Route::prefix('admin/chapter-cards')->group(function () {
+        Route::controller(ChapterCardController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.cards');
+            Route::get('/add', 'addCard')->name('card.add');
+            Route::post('/add', 'addCardData')->name('card.add.data');
+            Route::get('/update/{cardId}', 'updateCard')->name('card.update');
+            Route::post('/update/{cardId}', 'updateCardData')->name('card.update.data');
+            Route::get('/card-detail/{cardId}', 'getCardDetail')->name('card.detail');
+            Route::get('/change-card-status/{cardId}', 'changeCardStatus')->name('card.change.status');
+            Route::get('/delete/{cardId}', 'deleteCard')->name('card.delete');
+            Route::geT('/get_card/by-outline', 'getCardByOutline')->name('card.outline');
         });
     });
 
