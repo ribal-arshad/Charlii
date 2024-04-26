@@ -16,7 +16,7 @@
                                     <i class="bx bx-user fs-4"></i></span>
                                 </div>
                                 <span class="d-block text-nowrap">Total Users</span>
-                                <h2 class="mb-0">12313</h2>
+                                <h2 class="mb-0">{{ $totalUsers }}</h2>
                             </div>
                         </div>
                     </div>
@@ -25,10 +25,10 @@
                             <div class="card-body text-center">
                                 <div class="avatar mx-auto mb-4">
                                     <span class="avatar-initial rounded-circle bg-label-success">
-                                    <i class="bx bxs-calendar fs-4"></i></span>
+                                    <i class="bx bx-movie fs-4"></i></span>
                                 </div>
-                                <span class="d-block text-nowrap">Total Task</span>
-                                <h2 class="mb-0">123123</h2>
+                                <span class="d-block text-nowrap">Total Series</span>
+                                <h2 class="mb-0">{{ $totalSeries }}</h2>
                             </div>
                         </div>
                     </div>
@@ -37,10 +37,10 @@
                             <div class="card-body text-center">
                                 <div class="avatar mx-auto mb-4">
                                     <span class="avatar-initial rounded-circle bg-label-success">
-                                    <i class="bx bx-calendar-x fs-4"></i></span>
+                                    <i class="bx bx-book fs-4"></i></span>
                                 </div>
-                                <span class="d-block text-nowrap">Pending Task</span>
-                                <h2 class="mb-0">321312</h2>
+                                <span class="d-block text-nowrap">Total Books</span>
+                                <h2 class="mb-0">{{ $totalBooks }}</h2>
                             </div>
                         </div>
                     </div>
@@ -49,10 +49,10 @@
                             <div class="card-body text-center">
                                 <div class="avatar mx-auto mb-4">
                                     <span class="avatar-initial rounded-circle bg-label-success">
-                                    <i class="bx bx-calendar-check fs-4"></i></span>
+                                    <i class="bx bx-building-house fs-4"></i></span>
                                 </div>
-                                <span class="d-block text-nowrap">Completed Task</span>
-                                <h2 class="mb-0">332</h2>
+                                <span class="d-block text-nowrap">Total Premises</span>
+                                <h2 class="mb-0">{{ $totalPremises }}</h2>
                             </div>
                         </div>
                     </div>
