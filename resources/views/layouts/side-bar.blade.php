@@ -25,15 +25,50 @@
                 <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
-
-        @can('manage.users')
-        @php($user_routes = ['manage.users', 'user.add', 'user.update', 'user.detail'])
-        <li @class(['menu-item', 'active' => isRouteActive($user_routes)])>
-            <a href="{{route('manage.users')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Manage Users">Manage Users</div>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="fa-fw fas fa-gears c-sidebar-nav-icon"></i>
+                <div data-i18n="Package Management">Package Management</div>
             </a>
+            <ul class="menu-sub">
+                @can('package.access')
+                    @php($package = ['manage.package', 'package.add', 'package.update', 'package.detail','package.delete','package.status'])
+                    <li @class(['menu-item','active'=>isRouteActive($package)])class="menu-item">
+                        <a href="{{route('package')}}" class="menu-link">
+                            <i class="fa-fw fas fa-box-open c-sidebar-nav-icon"></i>
+                            <div data-i18n="Package">Package</div>
+                        </a>
+                    </li>
+                @endcan
+                @can('Package_option.access')
+                    @php($Package_option = ['manage.Package_option', 'Package_option.add', 'Package_option.update', 'Package_option.detail','Package_option.delete'])
+                    <li @class(['menu-item','active'=>isRouteActive($Package_option)])class="menu-item">
+                        <a href="{{route('Package.option')}}" class="menu-link">
+                            <i class="fa-fw fas fa-cube c-sidebar-nav-icon"></i>
+                            <div data-i18n="Package Option">Package Option</div>
+                        </a>
+                    </li>
+                @endcan
+                    @can('coupon.access')
+                        @php($coupon = ['manage.coupon', 'coupon.add', 'coupon.update', 'coupon.detail','coupon.delete','coupon.status'])
+                        <li @class(['menu-item','active'=>isRouteActive($coupon)])class="menu-item">
+                            <a href="{{route('coupon')}}" class="menu-link">
+                                <i class="fa-fw fas fa-gift c-sidebar-nav-icon"></i>
+                                <div data-i18n="Coupon">Coupon</div>
+                            </a>
+                        </li>
+                    @endcan
+            </ul>
         </li>
+
+    @can('manage.users')
+            @php($user_routes = ['manage.users', 'user.add', 'user.update', 'user.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($user_routes)])>
+                <a href="{{route('manage.users')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-user"></i>
+                    <div data-i18n="Manage Users">Manage Users</div>
+                </a>
+            </li>
         @endcan
 
         @can('role.access')

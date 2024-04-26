@@ -109,6 +109,23 @@ class PermissionSeeder extends Seeder
         "group.detail",
         "group.status.update",
         "group.delete",
+        "Package_option.access",
+        "Package_option.add",
+        "Package_option.edit",
+        "Package_option.detail",
+        "Package_option.delete",
+        "coupon.access",
+        "coupon.add",
+        "coupon.edit",
+        "coupon.detail",
+        "coupon.delete",
+        "coupon.status",
+        "package.access",
+        "package.add",
+        "package.edit",
+        "package.detail",
+        "package.delete",
+        "package.status",
     ];
 
     public function run(){

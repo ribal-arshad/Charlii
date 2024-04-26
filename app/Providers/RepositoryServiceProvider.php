@@ -13,6 +13,11 @@ use App\Interfaces\ManageUserRepositoryInterface;
 use App\Interfaces\OutlineRepositoryInterface;
 use App\Interfaces\PlotPlannerRepositoryInterface;
 use App\Interfaces\PremiseRepositoryInterface;
+use App\Interfaces\CouponRepositoryInterface;
+use App\Interfaces\ManageRoleRepositoryInterface;
+use App\Interfaces\ManageUserRepositoryInterface;
+use App\Interfaces\PackageOptionRepositoryInterface;
+use App\Interfaces\PackageRepositoryInterface;
 use App\Interfaces\SeriesRepositoryInterface;
 use App\Interfaces\TimelineEventTypesRepositoryInterface;
 use App\Interfaces\TimelineRepositoryInterface;
@@ -29,6 +34,11 @@ use App\Repositories\ManageUserRepository;
 use App\Repositories\OutlineRepository;
 use App\Repositories\PlotPlannerRepository;
 use App\Repositories\PremiseRepository;
+use App\Repositories\CouponRepository;
+use App\Repositories\ManageRoleRepository;
+use App\Repositories\ManageUserRepository;
+use App\Repositories\PackageOptionRepository;
+use App\Repositories\PackageRepository;
 use App\Repositories\SeriesRepository;
 use App\Repositories\TimelineEventTypesRepository;
 use App\Repositories\TimelineRepository;
@@ -71,5 +81,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(TimelineEventTypesRepositoryInterface::class, TimelineEventTypesRepository::class);
         $this->app->bind(PlotPlannerRepositoryInterface::class, PlotPlannerRepository::class);
         $this->app->bind(GroupRepositoryInterface::class, GroupRepository::class);
+        $this->app->bind(PackageOptionRepositoryInterface::class, PackageOptionRepository::class);
+        $this->app->bind(CouponRepositoryInterface::class, CouponRepository::class);
+        $this->app->bind(PackageRepositoryInterface::class, PackageRepository::class);
     }
 }
