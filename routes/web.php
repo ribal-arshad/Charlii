@@ -13,6 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OutlineController;
 use App\Http\Controllers\PlotPlannerController;
 use App\Http\Controllers\PremiseController;
+use App\Http\Controllers\PackageOptionController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\TimelineController;
 use App\Http\Controllers\TimelineEventTypeController;
@@ -78,6 +79,41 @@ Route::group(['middleware' => ['auth']],function () {
             Route::post('/update/{roleId}', 'updateRoleData')->name('role.update.data');
             Route::get('/role-detail/{roleId}', 'getRoleDetail')->name('role.detail');
             Route::get('/change-role-status/{roleId}', 'changeRoleStatus')->name('role.change.status');
+        });
+    });
+    Route::prefix('admin/Package_option')->group(function (){
+       Route::controller(PackageOptionController::class)->group(function (){
+          Route::get('/','index')->name('Package.option');
+           Route::get('/add', 'addPackage')->name('Package.option.add');
+           Route::post('/add', 'addPackageData')->name('Package.option.add.data');
+           Route::get('/update/{id}', 'updatePackage')->name('Package.option.update');
+           Route::post('/update/{id}', 'updatePackageData')->name('Package.option.update.data');
+           Route::get('/package-option/detail/{id}', 'getPackageDetail')->name('Package.option.detail');
+           Route::get('/package-option/delete/{id}', 'changePackageDelete')->name('Package.option.delete');
+       });
+    });
+    Route::prefix('admin/coupon')->group(function (){
+        Route::controller(\App\Http\Controllers\CouponController::class)->group(function (){
+            Route::get('/','index')->name('coupon');
+            Route::get('/add', 'addCoupon')->name('coupon.add');
+            Route::post('/add', 'addCouponData')->name('coupon.add.data');
+            Route::get('/update/{id}', 'updateCoupon')->name('coupon.update');
+            Route::post('/update/{id}', 'updateCouponData')->name('coupon.update.data');
+            Route::get('/coupon/detail/{id}', 'getCouponDetail')->name('coupon.detail');
+            Route::get('/coupon/delete/{id}', 'couponDelete')->name('coupon.delete');
+            Route::get('/coupon-status/{id}','changeCouponStatus')->name('coupon.status');
+        });
+    });
+    Route::prefix('admin/package')->group(function (){
+        Route::controller(\App\Http\Controllers\PackageController::class)->group(function (){
+            Route::get('/','index')->name('package');
+            Route::get('/add', 'addPackage')->name('package.add');
+            Route::post('/add', 'addPackageData')->name('package.add.data');
+            Route::get('/update/{id}', 'updatePackage')->name('package.update');
+            Route::post('/update/{id}', 'updatePackageData')->name('package.update.data');
+            Route::get('/package/detail/{id}', 'getPackageDetail')->name('package.detail');
+            Route::get('/package/delete/{id}', 'PackageDelete')->name('package.delete');
+            Route::get('/package-status/{id}','changePackageStatus')->name('package.status');
         });
     });
 
