@@ -19,42 +19,41 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        <li class="menu-item">
+        @php($dashboard = ['dashboard'])
+        <li @class(['menu-item', 'active'=>isRouteActive($dashboard)])>
             <a href="{{route('dashboard')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
-        <li class="menu-item">
+        @php($routesForPackage = ['package', 'package.add', 'package.update', 'package.detail', 'Package.option', 'Package.option.add', 'Package.option.update', 'Package.option.detail', 'coupon', 'coupon.add', 'coupon.update', 'coupon.detail'])
+        <li @class(['menu-item', 'open'=>isRouteActive($routesForPackage)])>
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="fa-fw fas fa-gears c-sidebar-nav-icon"></i>
+                <i class="menu-icon tf-icons bx bx-package"></i>
                 <div data-i18n="Package Management">Package Management</div>
             </a>
             <ul class="menu-sub">
                 @can('package.access')
-                    @php($package = ['manage.package', 'package.add', 'package.update', 'package.detail','package.delete','package.status'])
-                    <li @class(['menu-item','active'=>isRouteActive($package)])class="menu-item">
+                    @php($package = ['package', 'package.add', 'package.update', 'package.detail'])
+                    <li @class(['menu-item','active'=>isRouteActive($package)])>
                         <a href="{{route('package')}}" class="menu-link">
-                            <i class="fa-fw fas fa-box-open c-sidebar-nav-icon"></i>
-                            <div data-i18n="Package">Package</div>
+                            <div data-i18n="Package">Packages</div>
                         </a>
                     </li>
                 @endcan
                 @can('Package_option.access')
-                    @php($Package_option = ['manage.Package_option', 'Package_option.add', 'Package_option.update', 'Package_option.detail','Package_option.delete'])
-                    <li @class(['menu-item','active'=>isRouteActive($Package_option)])class="menu-item">
+                    @php($Package_option = ['Package.option', 'Package.option.add', 'Package.option.update', 'Package.option.detail'])
+                    <li @class(['menu-item','active'=>isRouteActive($Package_option)])>
                         <a href="{{route('Package.option')}}" class="menu-link">
-                            <i class="fa-fw fas fa-cube c-sidebar-nav-icon"></i>
-                            <div data-i18n="Package Option">Package Option</div>
+                            <div data-i18n="Package Option">Package Options</div>
                         </a>
                     </li>
                 @endcan
                     @can('coupon.access')
-                        @php($coupon = ['manage.coupon', 'coupon.add', 'coupon.update', 'coupon.detail','coupon.delete','coupon.status'])
-                        <li @class(['menu-item','active'=>isRouteActive($coupon)])class="menu-item">
+                        @php($coupon = ['coupon', 'coupon.add', 'coupon.update', 'coupon.detail'])
+                        <li @class(['menu-item','active' =>isRouteActive($coupon)])>
                             <a href="{{route('coupon')}}" class="menu-link">
-                                <i class="fa-fw fas fa-gift c-sidebar-nav-icon"></i>
-                                <div data-i18n="Coupon">Coupon</div>
+                                <div data-i18n="Coupon">Coupons</div>
                             </a>
                         </li>
                     @endcan
