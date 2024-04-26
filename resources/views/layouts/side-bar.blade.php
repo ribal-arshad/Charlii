@@ -140,8 +140,18 @@
                 </a>
             </li>
         @endcan
+        @can('brain-storm.access')
+            @php($brain_storm = ['manage.brain-storm', 'brain-storm.add', 'brain-storm.update', 'brain-storm.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($brain_storm)])>
+                <a href="{{route('brain-storm')}}" class="menu-link">
+                    <i class="fa-fw fas fa-braille c-sidebar-nav-icon"></i>
+                    <div data-i18n="Brain Storm">Brain Storm</div>
+                </a>
+            </li>
+        @endcan
 
-        @can('outline.access')
+
+    @can('outline.access')
             @php($outline_routes = ['manage.outlines', 'outline.add', 'outline.update', 'outline.detail'])
             <li @class(['menu-item', 'active' => isRouteActive($outline_routes)])>
                 <a href="{{route('manage.outlines')}}" class="menu-link">

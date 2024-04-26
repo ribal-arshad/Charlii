@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Interfaces\BookRepositoryInterface;
+use App\Interfaces\BrainStormRepositoryInterface;
 use App\Interfaces\CalendarRepositoryInterface;
 use App\Interfaces\ChapterCardRepositoryInterface;
 use App\Interfaces\ChapterRepositoryInterface;
@@ -14,8 +15,6 @@ use App\Interfaces\OutlineRepositoryInterface;
 use App\Interfaces\PlotPlannerRepositoryInterface;
 use App\Interfaces\PremiseRepositoryInterface;
 use App\Interfaces\CouponRepositoryInterface;
-use App\Interfaces\ManageRoleRepositoryInterface;
-use App\Interfaces\ManageUserRepositoryInterface;
 use App\Interfaces\PackageOptionRepositoryInterface;
 use App\Interfaces\PackageRepositoryInterface;
 use App\Interfaces\SeriesRepositoryInterface;
@@ -24,6 +23,7 @@ use App\Interfaces\TimelineRepositoryInterface;
 use App\Interfaces\UserGalleryRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Repositories\BookRepository;
+use App\Repositories\BrainStormRepository;
 use App\Repositories\CalendarRepository;
 use App\Repositories\ChapterCardRepository;
 use App\Repositories\ChapterRepository;
@@ -35,8 +35,6 @@ use App\Repositories\OutlineRepository;
 use App\Repositories\PlotPlannerRepository;
 use App\Repositories\PremiseRepository;
 use App\Repositories\CouponRepository;
-use App\Repositories\ManageRoleRepository;
-use App\Repositories\ManageUserRepository;
 use App\Repositories\PackageOptionRepository;
 use App\Repositories\PackageRepository;
 use App\Repositories\SeriesRepository;
@@ -84,5 +82,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(PackageOptionRepositoryInterface::class, PackageOptionRepository::class);
         $this->app->bind(CouponRepositoryInterface::class, CouponRepository::class);
         $this->app->bind(PackageRepositoryInterface::class, PackageRepository::class);
+        $this->app->bind(BrainStormRepositoryInterface::class, BrainStormRepository::class);
     }
 }
