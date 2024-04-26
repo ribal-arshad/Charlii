@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OutlineUpdateRequest extends FormRequest
+class PlotPlannerUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        if (auth()->user()->can('outline.edit')) {
+        if (auth()->user()->can('planner.edit')) {
             return true;
         } else {
             return false;
@@ -41,13 +41,7 @@ class OutlineUpdateRequest extends FormRequest
                 'integer',
                 'exists:books,id'
             ],
-            'outline_name' => [
-                'required',
-                'string',
-                'min:2',
-                'max:50',
-            ],
-            'outline_title' => [
+            'plot_planner_title' => [
                 'required',
                 'string',
                 'min:2',

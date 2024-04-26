@@ -55,6 +55,7 @@ class OutlineStoreRequest extends FormRequest
             ],
             'description' => [
                 'string',
+                'max:200',
                 'nullable',
             ],
             'color_id' => [

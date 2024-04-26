@@ -8,6 +8,7 @@ use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Interfaces\ManageRoleRepositoryInterface;
 use App\Interfaces\ManageUserRepositoryInterface;
+use App\Models\User;
 
 class ManageUserController extends Controller
 {
@@ -67,5 +68,12 @@ class ManageUserController extends Controller
 
     public function deleteUser($userId){
         return $this->manageUserRepository->deleteUser($userId);
+    }
+
+    public function getActiveUsers()
+    {
+        $users = User::where('status', 1)->get();
+
+        return response()->json(['options' => $users]);
     }
 }

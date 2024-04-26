@@ -135,5 +135,45 @@
                 </a>
             </li>
         @endcan
+
+        @can('timeline.access')
+            @php($timeline_routes = ['manage.timelines', 'timeline.add', 'timeline.update', 'timeline.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($timeline_routes)])>
+                <a href="{{route('manage.timelines')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-time"></i>
+                    <div data-i18n="Timelines">Timelines</div>
+                </a>
+            </li>
+        @endcan
+
+        @can('timeline.event.type.access')
+            @php($timelineEventType_routes = ['manage.timeline.event.types', 'timeline.event.type.add', 'timeline.event.type.update', 'timeline.event.type.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($timelineEventType_routes)])>
+                <a href="{{route('manage.timeline.event.types')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-calendar-event"></i>
+                    <div data-i18n="Timeline Event Types">Timeline Event Types</div>
+                </a>
+            </li>
+        @endcan
+
+        @can('planner.access')
+            @php($planner_routes = ['manage.planners', 'planner.add', 'planner.update', 'planner.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($planner_routes)])>
+                <a href="{{route('manage.planners')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-paper-plane"></i>
+                    <div data-i18n="Plot Planners">Plot Planners</div>
+                </a>
+            </li>
+        @endcan
+
+        @can('group.access')
+            @php($group_routes = ['manage.groups', 'group.add', 'group.update', 'group.detail'])
+            <li @class(['menu-item', 'active' => isRouteActive($group_routes)])>
+                <a href="{{route('manage.groups')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-group"></i>
+                    <div data-i18n="Groups">Groups</div>
+                </a>
+            </li>
+        @endcan
     </ul>
 </aside>

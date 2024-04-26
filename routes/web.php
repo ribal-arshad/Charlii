@@ -6,12 +6,16 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ChapterCardController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ManageRoleController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OutlineController;
+use App\Http\Controllers\PlotPlannerController;
 use App\Http\Controllers\PremiseController;
 use App\Http\Controllers\SeriesController;
+use App\Http\Controllers\TimelineController;
+use App\Http\Controllers\TimelineEventTypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserGalleryController;
 use Illuminate\Support\Facades\Route;
@@ -51,7 +55,7 @@ Route::group(['middleware' => ['auth']],function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::prefix('admin/roles')->group(function () {
+    Route::prefix('admin/users')->group(function () {
         Route::controller(ManageUserController::class)->group(function () {
             Route::get('/manage-users', 'manageUser')->name('manage.users');
             Route::get('/add-user', 'addUser')->name('user.add');
@@ -61,6 +65,7 @@ Route::group(['middleware' => ['auth']],function () {
             Route::get('/user-detail/{userId}', 'getUserDetail')->name('user.detail');
             Route::get('/change-user-status/{companyId}', 'changeUserStatus')->name('user.change.status');
             Route::get('/delete-user/{userId}', 'deleteUser')->name('user.delete');
+            Route::get('/get-active-users', 'getActiveUsers')->name('active.users');
         });
     });
 
@@ -195,6 +200,60 @@ Route::group(['middleware' => ['auth']],function () {
             Route::get('/change-card-status/{cardId}', 'changeCardStatus')->name('card.change.status');
             Route::get('/delete/{cardId}', 'deleteCard')->name('card.delete');
             Route::geT('/get_card/by-outline', 'getCardByOutline')->name('card.outline');
+        });
+    });
+
+    Route::prefix('admin/timelines')->group(function () {
+        Route::controller(TimelineController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.timelines');
+            Route::get('/add', 'addTimeline')->name('timeline.add');
+            Route::post('/add', 'addTimelineData')->name('timeline.add.data');
+            Route::get('/update/{timelineId}', 'updateTimeline')->name('timeline.update');
+            Route::post('/update/{timelineId}', 'updateTimelineData')->name('timeline.update.data');
+            Route::get('/timeline-detail/{timelineId}', 'getTimelineDetail')->name('timeline.detail');
+            Route::get('/change-timeline-status/{timelineId}', 'changeTimelineStatus')->name('timeline.change.status');
+            Route::get('/delete/{timelineId}', 'deleteTimeline')->name('timeline.delete');
+            Route::get('/get-timeline/by-book', 'getTimelineByBook')->name('timeline.book');
+        });
+    });
+
+    Route::prefix('admin/timeline-event-types')->group(function () {
+        Route::controller(TimelineEventTypeController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.timeline.event.types');
+            Route::get('/add', 'addEventType')->name('timeline.event.type.add');
+            Route::post('/add', 'addEventTypeData')->name('timeline.event.type.add.data');
+            Route::get('/update/{eventTypeId}', 'updateEventType')->name('timeline.event.type.update');
+            Route::post('/update/{eventTypeId}', 'updateEventTypeData')->name('timeline.event.type.update.data');
+            Route::get('/detail/{eventTypeId}', 'getEventTypeDetail')->name('timeline.event.type.detail');
+            Route::get('/change-event-type-status/{eventTypeId}', 'changeEventTypeStatus')->name('timeline.event.type.change.status');
+            Route::get('/delete/{eventTypeId}', 'deleteEventType')->name('timeline.event.type.delete');
+            Route::geT('/get_chapter/by-outline', 'getEventTypeByOutline')->name('timeline.event.type.outline');
+        });
+    });
+
+    Route::prefix('admin/plot-planners')->group(function () {
+        Route::controller(PlotPlannerController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.planners');
+            Route::get('/add', 'addPlotPlanner')->name('planner.add');
+            Route::post('/add', 'addPlotPlannerData')->name('planner.add.data');
+            Route::get('/update/{plannerId}', 'updatePlotPlanner')->name('planner.update');
+            Route::post('/update/{plannerId}', 'updatePlotPlannerData')->name('planner.update.data');
+            Route::get('/planner-detail/{plannerId}', 'getPlotPlannerDetail')->name('planner.detail');
+            Route::get('/change-planner-status/{plannerId}', 'changePlotPlannerStatus')->name('planner.change.status');
+            Route::get('/delete/{plannerId}', 'deletePlotPlanner')->name('planner.delete');
+            Route::get('/get-planner/by-book', 'getPlotPlannerByBook')->name('planner.book');
+        });
+    });
+
+    Route::prefix('admin/groups')->group(function () {
+        Route::controller(GroupController::class)->group(function () {
+            Route::get('/', 'index')->name('manage.groups');
+            Route::get('/add', 'addGroup')->name('group.add');
+            Route::post('/add', 'addGroupData')->name('group.add.data');
+            Route::get('/update/{groupId}', 'updateGroup')->name('group.update');
+            Route::post('/update/{groupId}', 'updateGroupData')->name('group.update.data');
+            Route::get('/group-detail/{groupId}', 'getGroupDetail')->name('group.detail');
+            Route::get('/delete/{groupId}', 'deleteGroup')->name('group.delete');
         });
     });
 

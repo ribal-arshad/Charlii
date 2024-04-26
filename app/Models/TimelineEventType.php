@@ -17,6 +17,7 @@ class TimelineEventType extends Model
         'timeline_id',
         'event_type',
         'color_id',
+        'status',
     ];
 
     public function user()

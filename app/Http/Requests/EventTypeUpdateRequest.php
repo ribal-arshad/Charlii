@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OutlineUpdateRequest extends FormRequest
+class EventTypeUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        if (auth()->user()->can('outline.edit')) {
+        if (auth()->user()->can('timeline.event.type.edit')) {
             return true;
         } else {
             return false;
@@ -41,22 +41,16 @@ class OutlineUpdateRequest extends FormRequest
                 'integer',
                 'exists:books,id'
             ],
-            'outline_name' => [
+            'timeline_id' => [
+                'required',
+                'integer',
+                'exists:timelines,id'
+            ],
+            'event_type' => [
                 'required',
                 'string',
                 'min:2',
                 'max:50',
-            ],
-            'outline_title' => [
-                'required',
-                'string',
-                'min:2',
-                'max:50',
-            ],
-            'description' => [
-                'string',
-                'max:200',
-                'nullable',
             ],
             'color_id' => [
                 'required',
