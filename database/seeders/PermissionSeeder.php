@@ -126,6 +126,13 @@ class PermissionSeeder extends Seeder
         "package.detail",
         "package.delete",
         "package.status",
+        "brain-storm.access",
+        "brain-storm.add",
+        "brain-storm.edit",
+        "brain-storm.detail",
+        "brain-storm.delete",
+        "brain-storm.status",
+
     ];
 
     public function run(){

@@ -196,7 +196,18 @@ Route::group(['middleware' => ['auth']],function () {
             Route::get('/delete/{premiseId}', 'deletePremise')->name('premise.delete');
         });
     });
-
+    Route::prefix('admin/brain-storm')->group(function () {
+        Route::controller(\App\Http\Controllers\BrainStormController::class)->group(function () {
+            Route::get('/', 'index')->name('brain-storm');
+            Route::get('/add', 'addBrainStorm')->name('brain-storm.add');
+            Route::post('/add', 'addBrainStormData')->name('brain-storm.add.data');
+            Route::get('/update/{brainId}', 'updateBrainStorm')->name('brain-storm.update');
+            Route::post('/update/{brainId}', 'updateBrainStormData')->name('brain-storm.update.data');
+            Route::get('/brain-storm-detail/{brainId}', 'getBrainStormDetail')->name('brain-storm.detail');
+            Route::get('/change-brain-storm-status/{brainId}', 'changeBrainStormStatus')->name('brain-storm.change.status');
+            Route::get('/delete/{brainId}', 'deleteBrainStorm')->name('brain-storm.delete');
+        });
+    });
     Route::prefix('admin/outlines')->group(function () {
         Route::controller(OutlineController::class)->group(function () {
             Route::get('/', 'index')->name('manage.outlines');

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Interfaces\BookRepositoryInterface;
+use App\Interfaces\BrainStormRepositoryInterface;
 use App\Interfaces\CalendarRepositoryInterface;
 use App\Interfaces\ChapterCardRepositoryInterface;
 use App\Interfaces\ChapterRepositoryInterface;
@@ -22,6 +23,7 @@ use App\Interfaces\TimelineRepositoryInterface;
 use App\Interfaces\UserGalleryRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Repositories\BookRepository;
+use App\Repositories\BrainStormRepository;
 use App\Repositories\CalendarRepository;
 use App\Repositories\ChapterCardRepository;
 use App\Repositories\ChapterRepository;
@@ -80,5 +82,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(PackageOptionRepositoryInterface::class, PackageOptionRepository::class);
         $this->app->bind(CouponRepositoryInterface::class, CouponRepository::class);
         $this->app->bind(PackageRepositoryInterface::class, PackageRepository::class);
+        $this->app->bind(BrainStormRepositoryInterface::class, BrainStormRepository::class);
     }
 }
