@@ -89,19 +89,26 @@
         });
 
         $(document).ready(function() {
-            $('select.select2').select2();
-
             function getMembers() {
+                var preSelectedMembers = {!! json_encode($selectedMembers) !!};
+
                 $.ajax({
                     url: '{{ route('active.users') }}',
                     method: 'GET',
                     success: function(response) {
-                        console.log(response);
-                        let defaultOption = '<option value="">Select Members</option>';
-                        let optionsHtml = response.options.map(function(option) {
+                        var defaultOption = '<option value="">Select Members</option>';
+                        var optionsHtml = response.options.map(function(option) {
                             return '<option value="' + option.id + '">' + option.name + '</option>';
                         }).join('');
+
                         $('select[name="members[]"]').html(defaultOption + optionsHtml);
+
+                        $('select[name="members[]"] option').each(function() {
+                            if (preSelectedMembers.includes(parseInt($(this).val()))) {
+                                let ss = $(this).prop('selected', true);
+                            }
+                        });
+
                         $('select[name="members[]"]').select2();
                     },
                     error: function(xhr) {
@@ -109,17 +116,25 @@
                     }
                 });
             }
+
             getMembers();
 
             $('#select-all').on('click', function() {
-                $('select[name="members[]"] option').prop('selected', true);
+                $('select[name="members[]"] option').each(function(index) {
+                    if (index !== 0) {
+                        $(this).prop('selected', true);
+                    }
+                });
+
                 $('select[name="members[]"]').trigger('change');
             });
+
 
             $('#deselect-all').on('click', function() {
                 $('select[name="members[]"] option').prop('selected', false);
                 $('select[name="members[]"]').trigger('change');
             });
         });
+
     </script>
 @endpush

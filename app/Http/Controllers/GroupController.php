@@ -44,7 +44,7 @@ class GroupController extends Controller
         $group = Group::findorfail($groupId);
 
         if (!empty($group)) {
-            $users = User::where('status', 1)->where('id', [$group->members->user_id])->get();
+            $users = User::where('status', 1)->get();
             $selectedMembers = $group->members->pluck('id')->toArray();
 
             return view('group.update', compact('selectedMembers', 'users', 'group'));

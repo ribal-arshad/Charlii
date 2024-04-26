@@ -23,9 +23,9 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-6 mb-6">
-                                <label class="form-label">Members</label>
+                                <label class="form-label">Members</label><br>
                                 @foreach($group->members as $key => $members)
-                                    <span class="label label-info">{{ $members->name }}</span>
+                                    <span class="badge bg-label-info">{{ $members->name }}</span>
                                 @endforeach
                             </div>
                             <div class="col-md-6 mb-6">

@@ -73,7 +73,6 @@
                     url: '{{ route('active.users') }}',
                     method: 'GET',
                     success: function(response) {
-                        console.log(response);
                         let defaultOption = '<option value="">Select Members</option>';
                         let optionsHtml = response.options.map(function(option) {
                             return '<option value="' + option.id + '">' + option.name + '</option>';
@@ -89,7 +88,12 @@
             getMembers();
 
             $('#select-all').on('click', function() {
-                $('select[name="members[]"] option').prop('selected', true);
+                $('select[name="members[]"] option').each(function(index) {
+                    if (index !== 0) {
+                        $(this).prop('selected', true);
+                    }
+                });
+
                 $('select[name="members[]"]').trigger('change');
             });
 

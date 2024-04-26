@@ -99,7 +99,7 @@ class GroupRepository implements GroupRepositoryInterface
             ->editColumn('members', function ($obj) {
                 $labels = [];
                 foreach ($obj->members as $member) {
-                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $member->name);
+                    $labels[] = sprintf('<span class="badge bg-label-info">%s</span>', $member->name);
                 }
 
                 return implode(' ', $labels);

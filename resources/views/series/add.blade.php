@@ -116,7 +116,12 @@
             $('select[name="books[]"]').select2();
 
             $('#select-all').on('click', function() {
-                $('select[name="books[]"] option').prop('selected', true);
+                $('select[name="books[]"] option').each(function(index) {
+                    if (index !== 0) {
+                        $(this).prop('selected', true);
+                    }
+                });
+
                 $('select[name="books[]"]').trigger('change');
             });
 
