@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
-@section('title', 'Add Brain Storm')
+@section('title', 'Add Brainstorm')
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header">Add Brain Storm</h5>
+                    <h5 class="card-header">Add Brainstorm</h5>
                     <div class="card-body">
                         <form action="{{route('brain-storm.add.data')}}" method="POST">
                             @csrf
@@ -45,7 +45,7 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-6 mb-6">
-                                    <label class="form-label">Brain Storm Name
+                                    <label class="form-label">Brainstorm Name
                                         <i class="fa fa-asterisk small-font text-danger" aria-hidden="true"></i>
                                     </label>
                                     <input type="text" class="form-control" name="brainstorm_name" value="{{old('brainstorm_name')}}" placeholder="Enter Storm Name"/>
@@ -54,7 +54,21 @@
                                     <label class="form-label"> Description
                                         <i class="fa fa-asterisk small-font text-danger" aria-hidden="true"></i>
                                     </label>
-                                    <textarea class="form-control" name="description" placeholder="Enter series description" cols="3" rows="3">{{ old('description') }}</textarea>
+                                    <textarea class="form-control" name="description" placeholder="Enter brainstorm description" cols="3" rows="3">{{ old('description') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6 mb-6">
+                                    <label class="form-label">Audio File
+                                        <i class="fa fa-asterisk small-font text-danger" aria-hidden="true"></i>
+                                    </label>
+                                    <input type="file" class="form-control" name="audio_file" placeholder="Enter audio_file"/>
+                                </div>
+                                <div class="col-md-6 mb-6">
+                                    <label class="form-label">Transcript
+                                        <i class="fa fa-asterisk small-font text-danger" aria-hidden="true"></i>
+                                    </label>
+                                    <input type="text" class="form-control" name="transcript" value="{{old('transcript')}}" placeholder="Enter transcript"/>
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -67,23 +81,11 @@
                                         <option value="0">Inactive</option>
                                     </select>
                                 </div>
-                                <div class="col-md-6 mb-6">
-                                    <label class="form-label">Audio File
-                                        <i class="fa fa-asterisk small-font text-danger" aria-hidden="true"></i>
-                                    </label>
-                                    <input type="file" class="form-control" name="audio_file" placeholder="Enter audio_file"/>
-                                </div>
-                                <div class="col-md-6 mb-6">
-                                    <label class="form-label">Transcript
-                                        <i class="fa fa-asterisk small-font text-danger" aria-hidden="true"></i>
-                                    </label>
-                                    <input type="text" class="form-control" name="transcript" value="{{old('transcript')}}" placeholder="Enter audio_file"/>
-                                </div>
                             </div>
 
                             <div class="row mt-3">
                                 <div class="col-md-12">
-                                    <a href="{{route('manage.premises')}}" class="btn btn-danger redirect-btn">Back</a>
+                                    <a href="{{route('brain-storm')}}" class="btn btn-danger redirect-btn">Back</a>
                                     <button type="submit" class="btn btn-primary" onclick="showLoader()">Add</button>
                                 </div>
                             </div>

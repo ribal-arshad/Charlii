@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Brainstorm List')
+@section('title', 'Brainstorms')
 
 @push('styles')
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}" />
@@ -11,7 +11,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
             <div class="card-header">
-                <h5 class="float-start">Brain Storm List</h5>
+                <h5 class="float-start">Brainstorms</h5>
                 <a href="{{route('brain-storm.add')}}" class="btn btn-primary float-end redirect-btn">Add +</a>
             </div>
             <div class="card-datatable text-nowrap">
@@ -43,13 +43,11 @@
                 "scrollX": true,
                 "ajax": "{{ route('brain-storm') }}",
                 "columns": [
-                    { "data" : "id","title" : "Id", "orderable": true, "searchable": true },
                     { "data" : "user_name","title" : "User Name", "orderable": true, "searchable": true },
                     { "data" : "book_name","title" : "Book Name", "orderable": false, "searchable": false },
                     { "data" : "series_name","title" : "Series", "orderable": false, "searchable": false },
                     { "data" : "brainstorm_name","title" : "Brainstorm Name", "orderable": false, "searchable": false },
                     { "data" : "color","title" : "Color", "orderable": false, "searchable": false },
-                    { "data" : "audio_file","title" : "Audio File", "orderable": false, "searchable": false },
                     { "data" : "status", "title" : "Active/InActive", "orderable": false, "searchable": false },
                     { "data" : "action","title" : "Action", "orderable": false, "searchable": false, "width": "190px" }
                 ]

@@ -5,16 +5,12 @@ namespace App\Repositories;
 use App\Interfaces\BrainStormRepositoryInterface;
 use App\Models\Brainstorm;
 use App\Models\Premise;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class BrainStormRepository implements BrainStormRepositoryInterface
 {
-    public function getAllPremises()
-    {
-        return Premise::get();
-    }
-
     public function getBrainById($brainId)
     {
         return Brainstorm::findOrFail($brainId);
@@ -26,7 +22,7 @@ class BrainStormRepository implements BrainStormRepositoryInterface
         if (!empty($premise)) {
             $premise->delete();
 
-            return redirect()->back()->with('success_msg', 'Premises successfully deleted.');
+            return redirect()->back()->with('success_msg', 'Brainstorm successfully deleted.');
         }
 
         abort(404);
@@ -34,23 +30,6 @@ class BrainStormRepository implements BrainStormRepositoryInterface
 
     public function createBrainStorm($request)
     {
-        $request->validate([
-            'user_id' => 'required',
-            'color_id' => 'required',
-            'series_id' => 'required',
-            'book_id' => 'required',
-            'brainstorm_name' => 'required',
-            'transcript' => 'required',
-
-        ]);
-
-
-        if ($request->hasFile('audio_file')) {
-            $fileName = time() . '.' . $request->audio_file->getClientOriginalExtension();
-            $request->audio_file->storeAs('uploads', $fileName);
-        }
-
-
         $brainstorm = Brainstorm::create([
             'user_id' => $request->user_id,
             'color_id' => $request->color_id,
@@ -60,18 +39,23 @@ class BrainStormRepository implements BrainStormRepositoryInterface
             'description' => $request->description,
             'status' => $request->status,
             'transcript' => $request->transcript,
-//            'audio_file_path' => isset($fileName) ? $fileName : null,
         ]);
-        return redirect()->route('brain-storm')->with('success_msg', 'Premises successfully added.');
+
+        if ($request->hasFile('audio_file')) {
+            $fileName = time() . '.' . $request->audio_file->getClientOriginalExtension();
+            $request->audio_file->storeAs('uploads', $fileName);
+        }
+
+        return redirect()->route('brain-storm')->with('success_msg', 'Brainstorm successfully added.');
 
     }
 
     public function updateBrain($brainId, $request)
     {
-        $premise = Brainstorm::findOrFail($brainId);
+        $brainStorm = Brainstorm::findOrFail($brainId);
 
-        if(!empty($premise)){
-            $premise->update([
+        if(!empty($brainStorm)){
+            $data = [
                 'user_id' => $request['user_id'],
                 'color_id' => $request['color_id'],
                 'series_id' => $request['series_id'],
@@ -79,13 +63,24 @@ class BrainStormRepository implements BrainStormRepositoryInterface
                 'brainstorm_name' => $request['brainstorm_name'],
                 'description' => $request['description'],
                 'status' => $request['status'],
-            ]);
+            ];
 
-            return redirect()->route('brain-storm')->with('success_msg', 'Premises successfully updated.');
+            if ($request->hasFile('audio_file')) {
+                Storage::delete($brainStorm->audio_file);
+
+                $fileName = time() . '.' . $request->audio_file->getClientOriginalExtension();
+                $request->audio_file->storeAs('uploads', $fileName);
+                $data['audio_file'] = $fileName;
+            }
+
+            $brainStorm->update($data);
+
+            return redirect()->route('brain-storm')->with('success_msg', 'Brainstorm successfully updated.');
         }
 
-        return redirect()->back()->withInput()->with('error_msg', 'Premises not found.');
+        return redirect()->back()->withInput()->with('error_msg', 'Brainstorm not found.');
     }
+
 
     public function getDataTable(){
 
@@ -169,7 +164,7 @@ class BrainStormRepository implements BrainStormRepositoryInterface
             $premise->update([
                 'status' => !$premise->status
             ]);
-            $msg = "Premises status successfully changed.";
+            $msg = "Brainstorm status successfully changed.";
             $code = 200;
         }
 

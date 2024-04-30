@@ -2,31 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PremiseStoreRequest;
-use App\Http\Requests\PremiseUpdateRequest;
+use App\Http\Requests\BrainstormStoreRequest;
+use App\Http\Requests\BrainstormUpdateRequest;
 use App\Interfaces\BrainStormRepositoryInterface;
-use App\Interfaces\PremiseRepositoryInterface;
 use App\Models\Book;
 use App\Models\Brainstorm;
 use App\Models\Color;
-use App\Models\Premise;
 use App\Models\Series;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class BrainStormController extends Controller
 {
-    private BrainStormRepositoryInterface $premiseRepository;
+    private BrainStormRepositoryInterface $brainStormRepository;
 
-    public function __construct(BrainStormRepositoryInterface $premiseRepository)
+    public function __construct(BrainStormRepositoryInterface $brainStormRepository)
     {
-        $this->BrainStormRepository = $premiseRepository;
+        $this->brainStormRepository = $brainStormRepository;
     }
 
     public function index()
     {
         if (\request()->ajax()) {
-            return $this->BrainStormRepository->getDataTable();
+            return $this->brainStormRepository->getDataTable();
         }
 
         return view('brain-storm.index');
@@ -40,47 +38,47 @@ class BrainStormController extends Controller
         return view('brain-storm.add', compact( 'colors', 'users'));
     }
 
-    public function addBrainStormData(Request $request)
+    public function addBrainStormData(BrainstormStoreRequest $request)
     {
-        return $this->BrainStormRepository->createBrainStorm($request);
+        return $this->brainStormRepository->createBrainStorm($request);
     }
 
     public function updateBrainStorm($brainId)
     {
-        $premise = Brainstorm::findorfail($brainId);
+        $brainStorm = Brainstorm::findorfail($brainId);
 
-        if (!empty($premise)) {
-            $series = Series::where('user_id', $premise->user_id)->where('status', 1)->get();
-            $books = Book::where('series_id', $premise->series_id)->where('status', 1)->get();
+        if (!empty($brainStorm)) {
+            $series = Series::where('user_id', $brainStorm->user_id)->where('status', 1)->get();
+            $books = Book::where('series_id', $brainStorm->series_id)->where('status', 1)->get();
             $colors = Color::where('status', 1)->get();
             $users = User::where('status', 1)->where('id', '!=', 1)->get();
-            $selectedBook = $premise->book ? $premise->book->id : '';
+            $selectedBook = $brainStorm->book ? $brainStorm->book->id : '';
 
-            return view('brain-storm.update', compact('premise', 'series', 'books', 'colors', 'users', 'selectedBook'));
+            return view('brain-storm.update', compact('brainStorm', 'series', 'books', 'colors', 'users', 'selectedBook'));
         }
 
         abort(404);
     }
 
-    public function updateBrainStormData($brainId, Request $request)
+    public function updateBrainStormData($brainId, BrainstormUpdateRequest $request)
     {
-        return $this->BrainStormRepository->updateBrain($brainId, $request);
+        return $this->brainStormRepository->updateBrain($brainId, $request);
     }
 
     public function getBrainStormDetail($brainId)
     {
-        $premise = $this->BrainStormRepository->getBrainById($brainId);
+        $brainStorm = $this->brainStormRepository->getBrainById($brainId);
 
-        return view('brain-storm.detail', compact('premise'));
+        return view('brain-storm.detail', compact('brainStorm'));
     }
 
     public function changeBrainStormStatus($brainId)
     {
-        return $this->BrainStormRepository->changeStatus($brainId);
+        return $this->brainStormRepository->changeStatus($brainId);
     }
 
     public function deleteBrainStorm($brainId)
     {
-        return $this->BrainStormRepository->deleteBrain($brainId);
+        return $this->brainStormRepository->deleteBrain($brainId);
     }
 }
