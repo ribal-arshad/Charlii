@@ -29,7 +29,7 @@
         @php($routesForPackage = ['package', 'package.add', 'package.update', 'package.detail', 'Package.option', 'Package.option.add', 'Package.option.update', 'Package.option.detail', 'coupon', 'coupon.add', 'coupon.update', 'coupon.detail'])
         <li @class(['menu-item', 'open'=>isRouteActive($routesForPackage)])>
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-package"></i>
+                <i class="menu-icon tf-icons bx bx-cog"></i>
                 <div data-i18n="Package Management">Package Management</div>
             </a>
             <ul class="menu-sub">
@@ -143,8 +143,8 @@
             @php($brain_storm = ['manage.brain-storm', 'brain-storm.add', 'brain-storm.update', 'brain-storm.detail'])
             <li @class(['menu-item', 'active' => isRouteActive($brain_storm)])>
                 <a href="{{route('brain-storm')}}" class="menu-link">
-                    <i class="fa-fw fas fa-braille c-sidebar-nav-icon"></i>
-                    <div data-i18n="Brain Storm">Brain Storm</div>
+                    <i class="menu-icon tf-icons bx bx-braille"></i>
+                    <div data-i18n="Brainstorms">Brainstorms</div>
                 </a>
             </li>
         @endcan
