@@ -9,7 +9,7 @@
                 <div class="card mb-4">
                     <h5 class="card-header">Update Brainstorm</h5>
                     <div class="card-body">
-                        <form action="{{route('brain-storm.update.data', $brainStorm->id)}}" method="POST">
+                        <form action="{{route('brain-storm.update.data', $brainStorm->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @include('partials.alert')
                             <div class="row mt-3">

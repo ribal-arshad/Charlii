@@ -9,7 +9,7 @@
                 <div class="card mb-4">
                     <h5 class="card-header">Add Brainstorm</h5>
                     <div class="card-body">
-                        <form action="{{route('brain-storm.add.data')}}" method="POST">
+                        <form action="{{route('brain-storm.add.data')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @include('partials.alert')
                             <div class="row mt-3">
@@ -62,7 +62,7 @@
                                     <label class="form-label">Audio File
                                         <i class="fa fa-asterisk small-font text-danger" aria-hidden="true"></i>
                                     </label>
-                                    <input type="file" class="form-control" name="audio_file" placeholder="Enter audio_file"/>
+                                    <input type="file" class="form-control" name="audio_file" placeholder="Enter audio_file" />
                                 </div>
                                 <div class="col-md-6 mb-6">
                                     <label class="form-label">Transcript
